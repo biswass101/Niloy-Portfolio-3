@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
@@ -21,6 +21,18 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      setOpen(false);
+    },
+    []
+  );
+
   return (
     <motion.nav
       initial={{ y: -80 }}
@@ -30,7 +42,11 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="font-mono text-lg font-bold text-primary neon-text">
+        <a
+          href="#home"
+          onClick={(e) => handleNavClick(e, "#home")}
+          className="font-mono text-lg font-bold text-primary neon-text"
+        >
           {"<N/>"}
         </a>
 
@@ -40,6 +56,7 @@ const Navbar = () => {
             <a
               key={link.label}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {link.label}
@@ -68,7 +85,7 @@ const Navbar = () => {
             <a
               key={link.label}
               href={link.href}
-              onClick={() => setOpen(false)}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, MapPin, ExternalLink } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import profileImg from "@/assets/profile.jpeg";
 
 const titles = [
   "Full Stack Developer",
@@ -42,15 +42,8 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt=""
-          className="w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
-      </div>
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
 
       {/* Floating particles */}
       {[...Array(20)].map((_, i) => (
@@ -73,8 +66,10 @@ const HeroSection = () => {
         />
       ))}
 
-      <div className="relative z-10 text-center px-6 max-w-4xl">
+      <div className="relative z-10 px-6 max-w-6xl w-full flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-16">
+        {/* Left: Text content */}
         <motion.div
+          className="flex-1 text-center md:text-left"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -88,12 +83,12 @@ const HeroSection = () => {
             {"< Hello World />"}
           </motion.p>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 font-mono">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 font-mono">
             <span className="text-foreground">Naeem Biswass</span>{" "}
             <span className="text-gradient">Niloy</span>
           </h1>
 
-          <div className="h-10 md:h-12 flex items-center justify-center mb-8">
+          <div className="h-10 md:h-12 flex items-center justify-center md:justify-start mb-8">
             <span className="font-mono text-xl md:text-2xl text-primary neon-text">
               {displayText}
             </span>
@@ -104,7 +99,7 @@ const HeroSection = () => {
             />
           </div>
 
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mb-10 leading-relaxed">
             Full Stack Developer with hands-on experience in MERN stack, DevOps
             fundamentals, and competitive programming. Building scalable
             solutions from Dhaka, Bangladesh.
@@ -112,7 +107,7 @@ const HeroSection = () => {
 
           {/* Social Links */}
           <motion.div
-            className="flex items-center justify-center gap-4 mb-8"
+            className="flex items-center justify-center md:justify-start gap-4 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -137,7 +132,7 @@ const HeroSection = () => {
           </motion.div>
 
           <motion.div
-            className="flex items-center justify-center gap-2 text-muted-foreground text-sm"
+            className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground text-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
@@ -147,17 +142,37 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Right: Profile Image */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="flex-shrink-0"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="w-6 h-10 rounded-full border-2 border-primary/30 flex justify-center pt-2">
-            <div className="w-1 h-2 rounded-full bg-primary animate-pulse-glow" />
+          <div className="relative">
+            {/* Glow ring */}
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-primary/60 via-primary/20 to-primary/60 blur-md animate-pulse" />
+            <div className="relative w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-primary/30 shadow-2xl">
+              <img
+                src={profileImg}
+                alt="Naeem Biswass Niloy"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="w-6 h-10 rounded-full border-2 border-primary/30 flex justify-center pt-2">
+          <div className="w-1 h-2 rounded-full bg-primary animate-pulse-glow" />
+        </div>
+      </motion.div>
     </section>
   );
 };
