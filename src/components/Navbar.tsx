@@ -3,12 +3,12 @@ import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
-  { label: "Contact", href: "#contact" },
+  { label: "home()", href: "#home" },
+  { label: "skills()", href: "#skills" },
+  { label: "experience()", href: "#experience" },
+  { label: "projects()", href: "#projects" },
+  { label: "education()", href: "#education" },
+  { label: "contact()", href: "#contact" },
 ];
 
 const Navbar = () => {
