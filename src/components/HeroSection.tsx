@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, MapPin, ExternalLink } from "lucide-react";
-import Image from "next/image";
-import profileImg from "@/assets/profile.jpeg";
 
 const titles = [
   "Full Stack Developer",
@@ -13,13 +11,41 @@ const titles = [
   "DevOps Enthusiast",
 ];
 
+type FloatingSkill = {
+  name: string;
+  iconClass?: string;
+  iconText?: string;
+  left: string;
+  top: string;
+  duration: number;
+  delay: number;
+};
+
+const floatingSkills: FloatingSkill[] = [
+  { name: "JavaScript", iconClass: "devicon-javascript-plain", left: "7%", top: "20%", duration: 6.2, delay: 0.2 },
+  { name: "TypeScript", iconClass: "devicon-typescript-plain", left: "14%", top: "58%", duration: 7.4, delay: 0.4 },
+  { name: "React", iconClass: "devicon-react-original", left: "25%", top: "30%", duration: 6.7, delay: 0.7 },
+  { name: "Next.js", iconClass: "devicon-nextjs-original", left: "34%", top: "68%", duration: 7.8, delay: 0.1 },
+  { name: "Vue", iconClass: "devicon-vuejs-plain", left: "44%", top: "22%", duration: 6.6, delay: 0.8 },
+  { name: "Node.js", iconClass: "devicon-nodejs-plain", left: "56%", top: "72%", duration: 8.1, delay: 0.3 },
+  { name: "Express", iconClass: "devicon-express-original", left: "66%", top: "28%", duration: 6.9, delay: 0.5 },
+  { name: "NestJS", iconClass: "devicon-nestjs-plain", left: "74%", top: "64%", duration: 7.2, delay: 0.9 },
+  { name: "MongoDB", iconClass: "devicon-mongodb-plain", left: "84%", top: "38%", duration: 7.6, delay: 0.6 },
+  { name: "PostgreSQL", iconClass: "devicon-postgresql-plain", left: "90%", top: "58%", duration: 7.1, delay: 0.2 },
+  { name: "Docker", iconClass: "devicon-docker-plain", left: "20%", top: "82%", duration: 8.3, delay: 0.4 },
+  { name: "AWS", iconClass: "devicon-amazonwebservices-plain-wordmark", left: "79%", top: "14%", duration: 8.6, delay: 0.7 },
+  { name: "Kubernetes", iconClass: "devicon-kubernetes-plain", left: "60%", top: "12%", duration: 7.3, delay: 0.3 },
+  { name: "Redis", iconClass: "devicon-redis-plain", left: "40%", top: "86%", duration: 7.9, delay: 0.5 },
+  { name: "CI/CD", iconClass: "devicon-githubactions-plain", left: "10%", top: "42%", duration: 6.8, delay: 0.9 },
+  { name: "REST APIs", iconText: "API", left: "52%", top: "44%", duration: 7.5, delay: 0.6 },
+  { name: "PM2", iconText: "PM2", left: "30%", top: "12%", duration: 6.5, delay: 0.2 },
+  { name: "Git", iconClass: "devicon-git-plain", left: "69%", top: "86%", duration: 7.2, delay: 0.8 },
+];
+
 const HeroSection = () => {
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [particles, setParticles] = useState<
-    Array<{ left: string; top: string; duration: number; delay: number }>
-  >([]);
 
   useEffect(() => {
     const currentTitle = titles[titleIndex];
@@ -43,50 +69,49 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, titleIndex]);
 
-  useEffect(() => {
-    setParticles(
-      Array.from({ length: 20 }).map(() => ({
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        duration: 3 + Math.random() * 4,
-        delay: Math.random() * 2,
-      })),
-    );
-  }, []);
-
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
-
-      {/* Floating particles */}
-      {particles.map((particle, i) => (
+      {/* Floating tech stack icons */}
+      {floatingSkills.map((skill) => (
         <motion.div
-          key={i}
-          className="absolute w-1 h-1 rounded-full bg-primary/30"
+          key={skill.name}
+          className="absolute z-[2]"
           style={{
-            left: particle.left,
-            top: particle.top,
+            left: skill.left,
+            top: skill.top,
           }}
           animate={{
-            y: [0, -30, 0],
-            opacity: [0.2, 0.8, 0.2],
+            y: [0, -14, 0],
+            x: [0, 8, 0],
+            rotate: [0, 5, 0],
+            opacity: [0.45, 0.95, 0.45],
           }}
           transition={{
-            duration: particle.duration,
+            duration: skill.duration,
             repeat: Infinity,
-            delay: particle.delay,
+            delay: skill.delay,
+            ease: "easeInOut",
           }}
-        />
+          whileHover={{ scale: 1.12 }}
+        >
+          <div className="hidden md:flex items-center justify-center rounded-xl border border-primary/30 bg-card/65 px-2.5 py-2 shadow-[0_0_18px_hsl(var(--primary)/0.25)] backdrop-blur-sm">
+            {skill.iconClass ? (
+              <i className={`${skill.iconClass} text-xl text-primary`} aria-hidden="true" />
+            ) : (
+              <span className="font-mono text-[11px] font-semibold text-primary tracking-wide">
+                {skill.iconText}
+              </span>
+            )}
+          </div>
+        </motion.div>
       ))}
 
-      <div className="relative z-10 px-6 max-w-6xl w-full flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-16">
-        {/* Left: Text content */}
+      <div className="relative z-10 px-6 max-w-4xl w-full flex flex-col items-center text-center">
         <motion.div
-          className="flex-1 text-center md:text-left"
+          className="w-full"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -105,7 +130,7 @@ const HeroSection = () => {
             <span className="text-gradient">Niloy</span>
           </h1>
 
-          <div className="h-10 md:h-12 flex items-center justify-center md:justify-start mb-8">
+          <div className="h-10 md:h-12 flex items-center justify-center mb-8">
             <span className="font-mono text-xl md:text-2xl text-primary neon-text">
               {displayText}
             </span>
@@ -116,7 +141,7 @@ const HeroSection = () => {
             />
           </div>
 
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mb-10 leading-relaxed">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
             Full Stack Developer with hands-on experience in MERN stack, DevOps
             fundamentals, and competitive programming. Building scalable
             solutions from Dhaka, Bangladesh.
@@ -124,7 +149,7 @@ const HeroSection = () => {
 
           {/* Social Links */}
           <motion.div
-            className="flex items-center justify-center md:justify-start gap-4 mb-8"
+            className="flex items-center justify-center gap-4 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -149,7 +174,7 @@ const HeroSection = () => {
           </motion.div>
 
           <motion.div
-            className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground text-sm"
+            className="flex items-center justify-center gap-2 text-muted-foreground text-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
@@ -157,29 +182,6 @@ const HeroSection = () => {
             <MapPin size={14} className="text-primary" />
             <span>Dhaka, Bangladesh</span>
           </motion.div>
-        </motion.div>
-
-        {/* Right: Profile Image */}
-        <motion.div
-          className="flex-shrink-0"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <div className="relative">
-            {/* Glow ring */}
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-primary/60 via-primary/20 to-primary/60 blur-md animate-pulse" />
-            <div className="relative w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-primary/30 shadow-2xl">
-              <Image
-                src={profileImg}
-                alt="Naeem Biswass Niloy"
-                fill
-                sizes="(max-width: 768px) 224px, (max-width: 1024px) 288px, 320px"
-                className="object-cover object-top"
-                priority
-              />
-            </div>
-          </div>
         </motion.div>
       </div>
 
