@@ -1,6 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, MapPin, ExternalLink } from "lucide-react";
+import Image from "next/image";
 import profileImg from "@/assets/profile.jpeg";
 
 const titles = [
@@ -14,6 +17,9 @@ const HeroSection = () => {
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [particles, setParticles] = useState<
+    Array<{ left: string; top: string; duration: number; delay: number }>
+  >([]);
 
   useEffect(() => {
     const currentTitle = titles[titleIndex];
@@ -37,6 +43,17 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, titleIndex]);
 
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 20 }).map(() => ({
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        duration: 3 + Math.random() * 4,
+        delay: Math.random() * 2,
+      })),
+    );
+  }, []);
+
   return (
     <section
       id="home"
@@ -46,22 +63,22 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
 
       {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
+      {particles.map((particle, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 rounded-full bg-primary/30"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: particle.left,
+            top: particle.top,
           }}
           animate={{
             y: [0, -30, 0],
             opacity: [0.2, 0.8, 0.2],
           }}
           transition={{
-            duration: 3 + Math.random() * 4,
+            duration: particle.duration,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: particle.delay,
           }}
         />
       ))}
@@ -153,10 +170,13 @@ const HeroSection = () => {
             {/* Glow ring */}
             <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-primary/60 via-primary/20 to-primary/60 blur-md animate-pulse" />
             <div className="relative w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-primary/30 shadow-2xl">
-              <img
+              <Image
                 src={profileImg}
                 alt="Naeem Biswass Niloy"
-                className="w-full h-full object-cover object-top"
+                fill
+                sizes="(max-width: 768px) 224px, (max-width: 1024px) 288px, 320px"
+                className="object-cover object-top"
+                priority
               />
             </div>
           </div>

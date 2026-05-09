@@ -4,7 +4,7 @@ Personal portfolio website of Naeem Biswass Niloy — Full Stack Developer.
 
 ## Tech Stack
 
-- Vite
+- Next.js
 - TypeScript
 - React
 - shadcn/ui
@@ -22,4 +22,10 @@ npm run dev
 
 ```sh
 npm run build
+
+## Production
+
+```sh
+npm run start
+```
 ```
