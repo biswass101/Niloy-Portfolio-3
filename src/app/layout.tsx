@@ -6,9 +6,9 @@ import CustomCursor from "@/components/CustomCursor";
 export const metadata: Metadata = {
   title: "Niloy | Portfolio",
   description: "Personal portfolio website of Naeem Biswass Niloy.",
-    icons: {
-        icon: "/favicon.svg",
-    }
+  icons: {
+    icon: "/rLogo.png",
+  },
 };
 
 
