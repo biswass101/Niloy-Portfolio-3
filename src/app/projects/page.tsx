@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, Expand, ExternalLink, Github } from "lucide-react";
+import ProjectImageSlider from "@/components/ProjectImageSlider";
+import ProjectPreviewDialog from "@/components/ProjectPreviewDialog";
 import UniverseBackground from "@/components/UniverseBackground";
 import { projects } from "@/data/projects";
 
@@ -47,51 +49,69 @@ const ProjectsPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + idx * 0.08 }}
                 whileHover={{ y: -8 }}
-                className="glass rounded-lg p-6 flex flex-col h-full group hover:border-primary/30 transition-all duration-300"
+                className="glass rounded-lg overflow-hidden flex flex-col h-full group hover:border-primary/30 transition-all duration-300"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono text-muted-foreground">{project.year}</span>
-                  <div className="flex gap-2">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                        aria-label="GitHub"
-                      >
-                        <Github size={16} />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                        aria-label="Live"
-                      >
-                        <ExternalLink size={16} />
-                      </a>
-                    )}
-                  </div>
+                <div className="relative h-44 w-full overflow-hidden border-b border-border/40 bg-muted/20">
+                  <ProjectPreviewDialog project={project}>
+                    <button
+                      type="button"
+                      aria-label={`Open fullscreen preview for ${project.title}`}
+                      className="relative h-full w-full text-left"
+                    >
+                      <ProjectImageSlider images={project.images} className="group-hover:scale-105 transition-transform duration-500" />
+                      <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-md bg-black/55 px-2 py-1 text-[10px] font-mono uppercase tracking-wide text-white">
+                        <Expand size={12} />
+                        Full View
+                      </span>
+                    </button>
+                  </ProjectPreviewDialog>
                 </div>
 
-                <h2 className="font-mono text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h2>
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono text-muted-foreground">{project.year}</span>
+                    <div className="flex gap-2">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                          aria-label="GitHub"
+                        >
+                          <Github size={16} />
+                        </a>
+                      )}
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                          aria-label="Live"
+                        >
+                          <ExternalLink size={16} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
 
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
-                  {project.description}
-                </p>
+                  <h2 className="font-mono text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h2>
 
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tech.map((t) => (
-                    <span key={t} className="text-xs font-mono text-muted-foreground">
-                      {t}
-                      {project.tech.indexOf(t) < project.tech.length - 1 && " ·"}
-                    </span>
-                  ))}
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tech.map((t) => (
+                      <span key={t} className="text-xs font-mono text-muted-foreground">
+                        {t}
+                        {project.tech.indexOf(t) < project.tech.length - 1 && " ·"}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}
