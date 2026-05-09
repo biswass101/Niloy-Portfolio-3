@@ -2,44 +2,13 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Github, Linkedin, Mail, MapPin, ExternalLink } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, ExternalLink, FileText } from "lucide-react";
 
 const titles = [
   "Full Stack Developer",
   "Software Engineer",
   "MERN Stack Expert",
   "DevOps Enthusiast",
-];
-
-type FloatingSkill = {
-  name: string;
-  iconClass?: string;
-  iconText?: string;
-  left: string;
-  top: string;
-  duration: number;
-  delay: number;
-};
-
-const floatingSkills: FloatingSkill[] = [
-  { name: "JavaScript", iconClass: "devicon-javascript-plain", left: "7%", top: "20%", duration: 6.2, delay: 0.2 },
-  { name: "TypeScript", iconClass: "devicon-typescript-plain", left: "14%", top: "58%", duration: 7.4, delay: 0.4 },
-  { name: "React", iconClass: "devicon-react-original", left: "25%", top: "30%", duration: 6.7, delay: 0.7 },
-  { name: "Next.js", iconClass: "devicon-nextjs-original", left: "34%", top: "68%", duration: 7.8, delay: 0.1 },
-  { name: "Vue", iconClass: "devicon-vuejs-plain", left: "44%", top: "22%", duration: 6.6, delay: 0.8 },
-  { name: "Node.js", iconClass: "devicon-nodejs-plain", left: "56%", top: "72%", duration: 8.1, delay: 0.3 },
-  { name: "Express", iconClass: "devicon-express-original", left: "66%", top: "28%", duration: 6.9, delay: 0.5 },
-  { name: "NestJS", iconClass: "devicon-nestjs-plain", left: "74%", top: "64%", duration: 7.2, delay: 0.9 },
-  { name: "MongoDB", iconClass: "devicon-mongodb-plain", left: "84%", top: "38%", duration: 7.6, delay: 0.6 },
-  { name: "PostgreSQL", iconClass: "devicon-postgresql-plain", left: "90%", top: "58%", duration: 7.1, delay: 0.2 },
-  { name: "Docker", iconClass: "devicon-docker-plain", left: "20%", top: "82%", duration: 8.3, delay: 0.4 },
-  { name: "AWS", iconClass: "devicon-amazonwebservices-plain-wordmark", left: "79%", top: "14%", duration: 8.6, delay: 0.7 },
-  { name: "Kubernetes", iconClass: "devicon-kubernetes-plain", left: "60%", top: "12%", duration: 7.3, delay: 0.3 },
-  { name: "Redis", iconClass: "devicon-redis-plain", left: "40%", top: "86%", duration: 7.9, delay: 0.5 },
-  { name: "CI/CD", iconClass: "devicon-githubactions-plain", left: "10%", top: "42%", duration: 6.8, delay: 0.9 },
-  { name: "REST APIs", iconText: "API", left: "52%", top: "44%", duration: 7.5, delay: 0.6 },
-  { name: "PM2", iconText: "PM2", left: "30%", top: "12%", duration: 6.5, delay: 0.2 },
-  { name: "Git", iconClass: "devicon-git-plain", left: "69%", top: "86%", duration: 7.2, delay: 0.8 },
 ];
 
 const HeroSection = () => {
@@ -74,41 +43,6 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Floating tech stack icons */}
-      {floatingSkills.map((skill) => (
-        <motion.div
-          key={skill.name}
-          className="absolute z-[2]"
-          style={{
-            left: skill.left,
-            top: skill.top,
-          }}
-          animate={{
-            y: [0, -14, 0],
-            x: [0, 8, 0],
-            rotate: [0, 5, 0],
-            opacity: [0.45, 0.95, 0.45],
-          }}
-          transition={{
-            duration: skill.duration,
-            repeat: Infinity,
-            delay: skill.delay,
-            ease: "easeInOut",
-          }}
-          whileHover={{ scale: 1.12 }}
-        >
-          <div className="hidden md:flex items-center justify-center rounded-xl border border-primary/30 bg-card/65 px-2.5 py-2 shadow-[0_0_18px_hsl(var(--primary)/0.25)] backdrop-blur-sm">
-            {skill.iconClass ? (
-              <i className={`${skill.iconClass} text-xl text-primary`} aria-hidden="true" />
-            ) : (
-              <span className="font-mono text-[11px] font-semibold text-primary tracking-wide">
-                {skill.iconText}
-              </span>
-            )}
-          </div>
-        </motion.div>
-      ))}
-
       <div className="relative z-10 px-6 max-w-4xl w-full flex flex-col items-center text-center">
         <motion.div
           className="w-full"
@@ -147,6 +81,23 @@ const HeroSection = () => {
             solutions from Dhaka, Bangladesh.
           </p>
 
+          <motion.div
+            className="flex flex-wrap items-center justify-center gap-3 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg neon-border bg-primary/12 px-5 py-2.5 font-mono text-sm text-primary transition-all duration-300 hover:bg-primary/20"
+            >
+              <FileText size={16} />
+              Resume &amp; CV
+            </a>
+          </motion.div>
+
           {/* Social Links */}
           <motion.div
             className="flex items-center justify-center gap-4 mb-8"
@@ -165,10 +116,13 @@ const HeroSection = () => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-lg neon-border bg-card/50 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                className="group inline-flex items-center rounded-lg neon-border bg-card/50 px-3 py-3 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
                 aria-label={label}
               >
-                <Icon size={20} />
+                <Icon size={20} className="shrink-0" />
+                <span className="ml-0 max-w-0 overflow-hidden whitespace-nowrap font-mono text-xs opacity-0 transition-all duration-300 group-hover:ml-2 group-hover:max-w-24 group-hover:opacity-100">
+                  {label}
+                </span>
               </a>
             ))}
           </motion.div>

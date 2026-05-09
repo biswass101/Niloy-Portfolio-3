@@ -10,14 +10,12 @@ const ContactSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">
-            <span className="text-primary">06.</span> Get In Touch
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">Get In Touch</h2>
           <div className="w-20 h-0.5 bg-primary/50 mx-auto mb-8" />
 
           <p className="text-muted-foreground mb-10 leading-relaxed">
             I'm currently open to new opportunities and collaborations. Whether
-            you have a question, a project idea, or just want to say hi — feel
+            you have a question, a project idea, or just want to say hi - feel
             free to reach out!
           </p>
 

@@ -18,6 +18,16 @@ type ShootingStar = {
   repeatDelay: number;
 };
 
+type FloatingSkill = {
+  name: string;
+  iconClass?: string;
+  iconText?: string;
+  left: string;
+  top: string;
+  duration: number;
+  delay: number;
+};
+
 const starParticles: StarParticle[] = [
   { left: "4%", top: "9%", size: 2, duration: 3.6, delay: 0.2 },
   { left: "9%", top: "31%", size: 1, duration: 4.4, delay: 1.4 },
@@ -61,6 +71,27 @@ const shootingStars: ShootingStar[] = [
   { left: "74%", top: "9%", duration: 1.2, delay: 14.2, repeatDelay: 22 },
 ];
 
+const floatingSkills: FloatingSkill[] = [
+  { name: "JavaScript", iconClass: "devicon-javascript-plain", left: "7%", top: "20%", duration: 6.2, delay: 0.2 },
+  { name: "TypeScript", iconClass: "devicon-typescript-plain", left: "14%", top: "58%", duration: 7.4, delay: 0.4 },
+  { name: "React", iconClass: "devicon-react-original", left: "25%", top: "30%", duration: 6.7, delay: 0.7 },
+  { name: "Next.js", iconClass: "devicon-nextjs-original", left: "34%", top: "68%", duration: 7.8, delay: 0.1 },
+  { name: "Vue", iconClass: "devicon-vuejs-plain", left: "44%", top: "22%", duration: 6.6, delay: 0.8 },
+  { name: "Node.js", iconClass: "devicon-nodejs-plain", left: "56%", top: "72%", duration: 8.1, delay: 0.3 },
+  { name: "Express", iconClass: "devicon-express-original", left: "66%", top: "28%", duration: 6.9, delay: 0.5 },
+  { name: "NestJS", iconClass: "devicon-nestjs-plain", left: "74%", top: "64%", duration: 7.2, delay: 0.9 },
+  { name: "MongoDB", iconClass: "devicon-mongodb-plain", left: "84%", top: "38%", duration: 7.6, delay: 0.6 },
+  { name: "PostgreSQL", iconClass: "devicon-postgresql-plain", left: "90%", top: "58%", duration: 7.1, delay: 0.2 },
+  { name: "Docker", iconClass: "devicon-docker-plain", left: "20%", top: "82%", duration: 8.3, delay: 0.4 },
+  { name: "AWS", iconClass: "devicon-amazonwebservices-plain-wordmark", left: "79%", top: "14%", duration: 8.6, delay: 0.7 },
+  { name: "Kubernetes", iconClass: "devicon-kubernetes-plain", left: "60%", top: "12%", duration: 7.3, delay: 0.3 },
+  { name: "Redis", iconClass: "devicon-redis-plain", left: "40%", top: "86%", duration: 7.9, delay: 0.5 },
+  { name: "CI/CD", iconClass: "devicon-githubactions-plain", left: "10%", top: "42%", duration: 6.8, delay: 0.9 },
+  { name: "REST APIs", iconText: "API", left: "52%", top: "44%", duration: 7.5, delay: 0.6 },
+  { name: "PM2", iconText: "PM2", left: "30%", top: "12%", duration: 6.5, delay: 0.2 },
+  { name: "Git", iconClass: "devicon-git-plain", left: "69%", top: "86%", duration: 7.2, delay: 0.8 },
+];
+
 const UniverseBackground = () => {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
@@ -74,11 +105,11 @@ const UniverseBackground = () => {
           animate={{ rotate: 360 }}
           transition={{ duration: 95, repeat: Infinity, ease: "linear" }}
         >
-          <svg viewBox="0 0 100 100" className="h-full w-full opacity-85" aria-hidden="true">
+          <svg viewBox="0 0 100 100" className="h-full w-full opacity-70" aria-hidden="true">
             <path
               d="M50 50 C52 50 54 52 54 54 C54 58 50 62 44 62 C36 62 30 56 30 48 C30 36 42 26 56 26 C72 26 84 40 84 58 C84 80 64 94 40 94 C16 94 2 74 2 48 C2 18 26 -2 58 -2"
               fill="none"
-              stroke="hsl(var(--primary) / 0.75)"
+              stroke="hsl(var(--primary) / 0.58)"
               strokeWidth="1.2"
               strokeLinecap="round"
               strokeDasharray="0.1 4.2"
@@ -86,7 +117,7 @@ const UniverseBackground = () => {
             <path
               d="M50 50 C52 50 54 52 54 54 C54 58 50 62 44 62 C36 62 30 56 30 48 C30 36 42 26 56 26 C72 26 84 40 84 58 C84 80 64 94 40 94 C16 94 2 74 2 48 C2 18 26 -2 58 -2"
               fill="none"
-              stroke="hsl(var(--foreground) / 0.45)"
+              stroke="hsl(var(--foreground) / 0.34)"
               strokeWidth="0.9"
               strokeLinecap="round"
               strokeDasharray="0.1 6"
@@ -95,7 +126,7 @@ const UniverseBackground = () => {
             <path
               d="M50 50 C52 50 54 52 54 54 C54 58 50 62 44 62 C36 62 30 56 30 48 C30 36 42 26 56 26 C72 26 84 40 84 58 C84 80 64 94 40 94 C16 94 2 74 2 48 C2 18 26 -2 58 -2"
               fill="none"
-              stroke="hsl(var(--neon-purple) / 0.42)"
+              stroke="hsl(var(--neon-purple) / 0.3)"
               strokeWidth="0.8"
               strokeLinecap="round"
               strokeDasharray="0.1 6.5"
@@ -143,6 +174,40 @@ const UniverseBackground = () => {
             ease: "easeInOut",
           }}
         />
+      ))}
+
+      {floatingSkills.map((skill) => (
+        <motion.div
+          key={skill.name}
+          className="absolute z-[2]"
+          style={{
+            left: skill.left,
+            top: skill.top,
+          }}
+          animate={{
+            y: [0, -14, 0],
+            x: [0, 8, 0],
+            rotate: [0, 5, 0],
+            opacity: [0.22, 0.3, 0.22],
+          }}
+          transition={{
+            duration: skill.duration,
+            repeat: Infinity,
+            delay: skill.delay,
+            ease: "easeInOut",
+          }}
+          whileHover={{ scale: 1.08 }}
+        >
+          <div className="hidden md:flex items-center justify-center rounded-xl border border-primary/20 bg-card/20 px-2.5 py-2 backdrop-blur-[1px]">
+            {skill.iconClass ? (
+              <i className={`${skill.iconClass} text-xl text-primary`} aria-hidden="true" />
+            ) : (
+              <span className="font-mono text-[11px] font-semibold text-primary tracking-wide">
+                {skill.iconText}
+              </span>
+            )}
+          </div>
+        </motion.div>
       ))}
     </div>
   );

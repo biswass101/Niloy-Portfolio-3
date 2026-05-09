@@ -32,7 +32,7 @@ const experiences = [
 
 const ExperienceSection = () => {
   return (
-    <section id="experience" className="section-padding bg-surface">
+    <section id="experience" className="section-padding">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,9 +40,7 @@ const ExperienceSection = () => {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">
-            <span className="text-primary">03.</span> Experience
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">Experience</h2>
           <div className="w-20 h-0.5 bg-primary/50" />
         </motion.div>
 

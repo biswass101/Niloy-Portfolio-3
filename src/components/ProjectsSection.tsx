@@ -1,49 +1,9 @@
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
+import { projects } from "@/data/projects";
 
-const projects = [
-  {
-    title: "Social Media Automation Platform",
-    description:
-      "Chatbot integrating OpenAI with Meta platforms for automated customer messaging, order handling, and comment replies.",
-    tech: ["Node.js", "OpenAI", "Meta APIs", "MongoDB", "Redis"],
-    live: "https://autopingai.com",
-    year: "2025",
-  },
-  {
-    title: "Education Management System",
-    description:
-      "Rebuilt frontend and backend using Next.js and Node.js, improving deployment stability and performance.",
-    tech: ["Next.js", "Node.js", "Express.js", "MongoDB"],
-    live: "https://onlinequranacademybd.com",
-    year: "2025",
-  },
-  {
-    title: "Travel Agency Portfolio (BdiGo)",
-    description:
-      "Frontend-focused travel agency portfolio with responsive layouts, animations, and interactive UI using Nuxt.js and Motion.js.",
-    tech: ["Nuxt.js", "Vue.js", "Motion.js", "CSS"],
-    live: "https://bdigo.com",
-    year: "2025",
-  },
-  {
-    title: "GigaBook – Social Media Platform",
-    description:
-      "Lightweight social platform enabling user follow systems, post creation, editing, and profile management.",
-    tech: ["Next.js", "NeonDB", "Prisma", "shadcn/ui"],
-    live: "https://giga-book.vercel.app",
-    github: "https://github.com/biswass101/GigaBook-Social-media",
-    year: "2025",
-  },
-  {
-    title: "Portfolio Management Platform",
-    description:
-      "Portfolio management with profile and section management, JWT auth, and Cloudinary integration.",
-    tech: ["React.js", "Node.js", "JWT", "Cloudinary"],
-    live: "https://manage-grabbi.vercel.app",
-    year: "2025",
-  },
-];
+const featuredProjects = projects.slice(0, 3);
 
 const ProjectsSection = () => {
   return (
@@ -55,16 +15,17 @@ const ProjectsSection = () => {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">
-            <span className="text-primary">04.</span> Projects
-          </h2>
+          <p className="text-primary text-xs uppercase tracking-[0.2em] font-mono mb-3">
+            Featured Projects
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">Projects</h2>
           <div className="w-20 h-0.5 bg-primary/50" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, idx) => (
+          {featuredProjects.map((project, idx) => (
             <motion.div
-              key={idx}
+              key={project.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -73,9 +34,7 @@ const ProjectsSection = () => {
               className="glass rounded-lg p-6 flex flex-col h-full group hover:border-primary/30 transition-all duration-300"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono text-muted-foreground">
-                  {project.year}
-                </span>
+                <span className="text-xs font-mono text-muted-foreground">{project.year}</span>
                 <div className="flex gap-2">
                   {project.github && (
                     <a
@@ -112,10 +71,7 @@ const ProjectsSection = () => {
 
               <div className="flex flex-wrap gap-1.5">
                 {project.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs font-mono text-muted-foreground"
-                  >
+                  <span key={t} className="text-xs font-mono text-muted-foreground">
                     {t}
                     {project.tech.indexOf(t) < project.tech.length - 1 && " ·"}
                   </span>
@@ -124,6 +80,21 @@ const ProjectsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-12 flex justify-center"
+        >
+          <Link
+            href="/projects"
+            className="inline-flex items-center rounded-lg border border-primary/40 bg-primary/10 px-6 py-3 font-mono text-sm text-primary transition-all duration-300 hover:bg-primary/20"
+          >
+            View All Projects
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

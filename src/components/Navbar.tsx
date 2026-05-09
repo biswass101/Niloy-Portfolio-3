@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useCallback } from "react";
+import Link from "next/link";
 import {
   BriefcaseBusiness,
   Cpu,
@@ -48,17 +49,19 @@ const Navbar = () => {
       <motion.nav initial={{ y: -80 }} animate={{ y: 0 }}>
       <div className="relative">
         <div className="glass inline-flex max-w-[calc(100vw-1.5rem)] items-center rounded-2xl px-4 py-3">
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, "#home")}
-            className="flex items-center gap-2"
-            aria-label="Go to home"
+          <Link
+            href="/profile"
+            className="group relative flex items-center gap-2 overflow-hidden rounded-lg px-2 py-1"
+            aria-label="Go to profile"
           >
+            <span className="absolute inset-0 -z-10 bg-gradient-to-r from-[hsl(var(--primary)/0.2)] via-[hsl(var(--primary)/0.1)] to-[hsl(var(--neon-purple)/0.2)] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+            <span className="absolute inset-0 -z-10 origin-left scale-x-0 bg-gradient-to-r from-[hsl(var(--primary)/0.25)] via-[hsl(var(--primary)/0.14)] to-[hsl(var(--neon-purple)/0.24)] transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100" />
+
             <span className="font-mono text-lg font-bold text-primary neon-text">{"<N/>"}</span>
             <span className="font-mono text-xs md:text-sm text-foreground/90 tracking-wide">
               niloybiswass.xyz
             </span>
-          </a>
+          </Link>
 
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-2 ml-2">

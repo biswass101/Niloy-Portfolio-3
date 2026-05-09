@@ -5,6 +5,7 @@ import HeroSection from "@/components/HeroSection";
 import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import AboutSection from "@/components/AboutSection";
 import EducationSection from "@/components/EducationSection";
 import ContactSection from "@/components/ContactSection";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -17,9 +18,10 @@ const HomePage = () => {
       <div className="relative z-10">
         <Navbar />
         <HeroSection />
+        <ProjectsSection />
+        <AboutSection />
         <SkillsSection />
         <ExperienceSection />
-        <ProjectsSection />
         <EducationSection />
         <ContactSection />
         <ScrollToTop />

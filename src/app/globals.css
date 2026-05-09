@@ -105,9 +105,9 @@ html {
   }
 
   .glass {
-    background: hsl(var(--card) / 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid hsl(var(--border) / 0.5);
+    background: hsl(var(--card) / 0.42);
+    backdrop-filter: blur(14px);
+    border: 1px solid hsl(var(--border) / 0.35);
   }
 
   .section-padding {
