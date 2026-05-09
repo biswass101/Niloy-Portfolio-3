@@ -9,6 +9,7 @@ import {
   House,
   Mail,
   Menu,
+  User,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -21,9 +22,10 @@ type NavLinkItem = {
 
 const links: NavLinkItem[] = [
   { label: "home()", href: "#home", icon: House },
+  { label: "projects()", href: "#projects", icon: FolderKanban },
+  { label: "about()", href: "#about", icon: User },
   { label: "skills()", href: "#skills", icon: Cpu },
   { label: "experience()", href: "#experience", icon: BriefcaseBusiness },
-  { label: "projects()", href: "#projects", icon: FolderKanban },
   { label: "education()", href: "#education", icon: GraduationCap },
   { label: "contact()", href: "#contact", icon: Mail },
 ];
