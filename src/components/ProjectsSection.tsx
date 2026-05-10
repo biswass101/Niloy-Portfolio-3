@@ -21,7 +21,7 @@ const ProjectsSection = () => {
           <p className="text-primary text-xs uppercase tracking-[0.2em] font-mono mb-3">
             Featured Projects
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">Projects</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono mb-2">Projects</h2>
           <div className="w-20 h-0.5 bg-primary/50" />
         </motion.div>
 
@@ -54,7 +54,7 @@ const ProjectsSection = () => {
 
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono text-muted-foreground">{project.year}</span>
+                  <span className="text-[10px] sm:text-xs font-mono text-muted-foreground">{project.year}</span>
                   <div className="flex gap-2">
                     {project.github && (
                       <a
@@ -81,19 +81,21 @@ const ProjectsSection = () => {
                   </div>
                 </div>
 
-                <h3 className="font-mono text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                <h3 className="font-mono text-sm sm:text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
 
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 flex-1">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {project.tech.map((t) => (
-                    <span key={t} className="text-xs font-mono text-muted-foreground">
+                    <span
+                      key={t}
+                      className="rounded-xl border border-primary/20 bg-primary/10 px-2.5 sm:px-3 py-1 text-[10px] sm:text-xs font-mono text-primary"
+                    >
                       {t}
-                      {project.tech.indexOf(t) < project.tech.length - 1 && " ·"}
                     </span>
                   ))}
                 </div>
@@ -111,7 +113,7 @@ const ProjectsSection = () => {
         >
           <Link
             href="/projects"
-            className="inline-flex items-center rounded-lg border border-primary/40 bg-primary/10 px-6 py-3 font-mono text-sm text-primary transition-all duration-300 hover:bg-primary/20"
+            className="inline-flex items-center rounded-lg border border-primary/40 bg-primary/10 px-5 sm:px-6 py-2.5 sm:py-3 font-mono text-xs sm:text-sm text-primary transition-all duration-300 hover:bg-primary/20"
           >
             View All Projects
           </Link>

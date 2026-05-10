@@ -1,13 +1,14 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   BriefcaseBusiness,
   Cpu,
   FolderKanban,
-  GraduationCap,
   House,
-  Mail,
   Menu,
   User,
   X,
@@ -21,30 +22,21 @@ type NavLinkItem = {
 };
 
 const links: NavLinkItem[] = [
-  { label: "home()", href: "#home", icon: House },
-  { label: "projects()", href: "#projects", icon: FolderKanban },
-  { label: "about()", href: "#about", icon: User },
-  { label: "skills()", href: "#skills", icon: Cpu },
-  { label: "experience()", href: "#experience", icon: BriefcaseBusiness },
-  { label: "education()", href: "#education", icon: GraduationCap },
-  { label: "contact()", href: "#contact", icon: Mail },
+  { label: "Home", href: "/", icon: House },
+  { label: "Projects", href: "/projects", icon: FolderKanban },
+  { label: "Experiences", href: "/experiences", icon: BriefcaseBusiness },
+  { label: "Skills", href: "/technical-expertise", icon: Cpu },
+  { label: "About me", href: "/profile", icon: User },
 ];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+  const pathname = usePathname();
 
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-      setOpen(false);
-    },
-    []
-  );
+  const handleNavClick = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   return (
     <div className="fixed top-5 left-1/2 z-50 -translate-x-1/2">
@@ -72,17 +64,22 @@ const Navbar = () => {
             </span>
             {links.map((link) => {
               const Icon = link.icon;
+              const isActive = pathname === link.href;
 
               return (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
+                  onClick={handleNavClick}
                   onMouseEnter={() => setHoveredLabel(link.label)}
                   onMouseLeave={() => setHoveredLabel(null)}
                   onFocus={() => setHoveredLabel(link.label)}
                   onBlur={() => setHoveredLabel(null)}
-                  className="group flex items-center rounded-full border border-border/60 bg-card/40 px-3 py-2 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-primary"
+                  className={`group flex items-center rounded-full border px-3 py-2 transition-all duration-300 ${
+                    isActive
+                      ? "border-primary/50 bg-primary/15 text-primary shadow-[0_0_16px_hsl(var(--primary)/0.2)]"
+                      : "border-border/60 bg-card/40 text-muted-foreground hover:border-primary/40 hover:text-primary"
+                  }`}
                   aria-label={link.label}
                 >
                   <Icon size={16} className="shrink-0" />
@@ -95,7 +92,7 @@ const Navbar = () => {
                   >
                     {link.label}
                   </span>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -121,15 +118,17 @@ const Navbar = () => {
               const Icon = link.icon;
 
               return (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+                  onClick={handleNavClick}
+                  className={`font-mono text-sm transition-colors flex items-center gap-2 ${
+                    pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   <Icon size={16} />
                   {link.label}
-                </a>
+                </Link>
               );
             })}
           </motion.div>

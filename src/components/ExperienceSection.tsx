@@ -31,20 +31,35 @@ const experiences = [
 ];
 
 const ExperienceSection = () => {
+  const sameCompanyAndLocation = experiences.every(
+    (exp) =>
+      exp.company === experiences[0].company &&
+      exp.location === experiences[0].location
+  );
+
   return (
     <section id="experience" className="section-padding">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mb-16"
         >
+          <p className="text-primary text-xs uppercase tracking-[0.2em] font-mono mb-3">
+            Career Timeline
+          </p>
           <h2 className="text-3xl md:text-4xl font-bold font-mono mb-2">Experience</h2>
           <div className="w-20 h-0.5 bg-primary/50" />
         </motion.div>
 
         <div className="relative">
+          {sameCompanyAndLocation && (
+            <div className="mb-8 rounded-lg border border-border/60 bg-card/30 px-4 py-3 font-mono text-xs text-primary">
+              {experiences[0].company} · {experiences[0].location}
+            </div>
+          )}
+
           {/* Timeline line */}
           <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-border" />
 
@@ -62,15 +77,17 @@ const ExperienceSection = () => {
                 <Briefcase size={10} className="text-primary" />
               </div>
 
-              <div className="glass rounded-lg p-6">
+              <div className="glass rounded-lg border-l-2 border-primary/40 p-6">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
                   <div>
                     <h3 className="font-mono text-lg font-semibold text-foreground">
                       {exp.title}
                     </h3>
-                    <p className="text-primary text-sm font-mono">
-                      {exp.company} · {exp.location}
-                    </p>
+                    {!sameCompanyAndLocation && (
+                      <p className="text-primary text-sm font-mono">
+                        {exp.company} · {exp.location}
+                      </p>
+                    )}
                   </div>
                   <span className="text-muted-foreground text-xs font-mono mt-1 md:mt-0">
                     {exp.period}
@@ -81,9 +98,11 @@ const ExperienceSection = () => {
                   {exp.highlights.map((h, i) => (
                     <li
                       key={i}
-                      className="text-muted-foreground text-sm leading-relaxed flex gap-2"
+                      className="flex items-start gap-2 text-muted-foreground text-sm leading-relaxed"
                     >
-                      <span className="text-primary mt-1.5 flex-shrink-0">▹</span>
+                      <span className="mt-0.5 inline-flex h-5 w-4 flex-shrink-0 items-center justify-center text-primary leading-none">
+                        ▹
+                      </span>
                       {h}
                     </li>
                   ))}

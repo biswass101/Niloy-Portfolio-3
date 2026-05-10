@@ -14,9 +14,9 @@ const ProjectPreviewDialog = ({ project, children }: ProjectPreviewDialogProps) 
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="h-[94vh] w-[98vw] max-w-[98vw] overflow-hidden border-primary/30 bg-background/95 p-0 backdrop-blur-md sm:rounded-xl">
-        <div className="grid h-full grid-cols-1 lg:grid-cols-[1.9fr_0.7fr]">
-          <div className="relative min-h-[48vh] border-b border-border/50 bg-muted/20 lg:min-h-full lg:border-b-0 lg:border-r">
+      <DialogContent className="h-auto max-h-[94vh] w-[98vw] max-w-[98vw] overflow-y-auto border-primary/30 bg-background/95 p-0 backdrop-blur-md sm:rounded-xl lg:h-[94vh] lg:overflow-hidden">
+        <div className="grid grid-cols-1 lg:h-full lg:grid-cols-[1.9fr_0.7fr]">
+          <div className="relative min-h-[42vh] border-b border-border/50 bg-muted/20 sm:min-h-[48vh] lg:min-h-full lg:border-b-0 lg:border-r">
             <ProjectImageSlider
               images={project.images}
               sizes="(min-width: 1280px) 72vw, (min-width: 1024px) 68vw, 98vw"
@@ -25,7 +25,7 @@ const ProjectPreviewDialog = ({ project, children }: ProjectPreviewDialogProps) 
             />
           </div>
 
-          <div className="flex h-full flex-col overflow-y-auto p-5 md:p-6">
+          <div className="flex flex-col overflow-y-auto p-5 md:p-6 lg:h-full">
             <p className="mb-3 text-xs font-mono text-primary/90">{project.year}</p>
             <DialogTitle className="mb-3 font-mono text-2xl text-foreground">{project.title}</DialogTitle>
             <DialogDescription className="mb-6 text-sm leading-relaxed text-muted-foreground">

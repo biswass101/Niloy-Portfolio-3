@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, MapPin, ExternalLink, FileText } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const titles = [
   "Full Stack Developer",
@@ -37,6 +38,13 @@ const HeroSection = () => {
     );
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, titleIndex]);
+
+  const scrollToNextSection = () => {
+    const nextSection = document.querySelector("#projects");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <section
@@ -140,15 +148,25 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="w-6 h-10 rounded-full border-2 border-primary/30 flex justify-center pt-2">
-          <div className="w-1 h-2 rounded-full bg-primary animate-pulse-glow" />
-        </div>
-      </motion.div>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <motion.button
+            type="button"
+            className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            onClick={scrollToNextSection}
+            aria-label="Go to next section"
+          >
+            <span className="flex h-10 w-6 justify-center rounded-full border-2 border-primary/30 pt-2 transition-colors hover:border-primary/70">
+              <span className="h-2 w-1 rounded-full bg-primary animate-pulse-glow" />
+            </span>
+          </motion.button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="font-mono text-xs">
+          Click to open Projects
+        </TooltipContent>
+      </Tooltip>
     </section>
   );
 };

@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -16,12 +15,11 @@ const HomePage = () => {
     <div className="relative min-h-screen bg-background">
       <UniverseBackground />
       <div className="relative z-10">
-        <Navbar />
         <HeroSection />
         <ProjectsSection />
         <AboutSection />
-        <SkillsSection />
         <ExperienceSection />
+        <SkillsSection />
         <EducationSection />
         <ContactSection />
         <ScrollToTop />

@@ -25,13 +25,13 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
-            className="group relative overflow-hidden rounded-lg glass p-6 md:col-span-2 lg:col-span-3 min-h-[250px]"
+            className="group relative overflow-hidden rounded-lg border border-primary/25 bg-gradient-to-br from-primary/20 via-card/80 to-background/70 p-6 backdrop-blur-sm md:col-span-2 lg:col-span-3 min-h-[250px]"
           >
             <Image
               src={bangladeshMap}
               alt="Bangladesh map"
               fill
-              className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              className="object-cover opacity-10 transition-opacity duration-500 group-hover:opacity-90"
             />
             <div className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 blur-[2px] transition-all duration-700 group-hover:left-[120%] group-hover:opacity-100" />
             <div className="absolute inset-0 bg-gradient-to-t from-background/22 via-background/6 to-background/12 opacity-45 transition-opacity duration-500 group-hover:opacity-28" />

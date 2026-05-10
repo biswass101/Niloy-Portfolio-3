@@ -7,6 +7,13 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: clamp(14px, 0.35vw + 13px, 16px);
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 17px;
+  }
 }
 
 @layer base {
@@ -165,4 +172,118 @@ html {
 .custom-cursor-dot[data-hidden='true'],
 .custom-cursor-ring[data-hidden='true'] {
   opacity: 0;
+}
+
+.tech-globe-scene {
+  perspective: 1200px;
+  --node-depth: 170px;
+}
+
+.tech-globe-sphere {
+  position: relative;
+  margin: 0 auto;
+  height: 380px;
+  width: 380px;
+  transform-style: preserve-3d;
+  animation: tech-globe-spin 18s linear infinite;
+}
+
+.tech-globe-core {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--primary) / 0.35);
+  background:
+    radial-gradient(circle at 30% 28%, hsl(var(--primary) / 0.34), transparent 35%),
+    radial-gradient(circle at 68% 72%, hsl(var(--neon-purple) / 0.23), transparent 45%),
+    linear-gradient(145deg, hsl(var(--card) / 0.95), hsl(var(--background) / 0.84));
+  box-shadow:
+    inset -30px -24px 54px hsl(var(--background) / 0.72),
+    inset 22px 18px 42px hsl(var(--primary) / 0.1),
+    0 0 42px hsl(var(--primary) / 0.2);
+}
+
+.tech-globe-atmosphere {
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--primary) / 0.18);
+  box-shadow: 0 0 40px hsl(var(--primary) / 0.12);
+}
+
+.tech-globe-longitude {
+  position: absolute;
+  inset: 15px;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--primary) / 0.28);
+  transform-style: preserve-3d;
+}
+
+.tech-stack-node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+}
+
+.tech-stack-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--primary) / 0.35);
+  background: hsl(var(--card) / 0.92);
+  box-shadow: 0 0 16px hsl(var(--primary) / 0.26);
+  transform: translate(-50%, -50%);
+}
+
+.tech-stack-badge i {
+  font-size: 16px;
+  line-height: 1;
+}
+
+@keyframes tech-globe-spin {
+  from {
+    transform: rotateX(18deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(18deg) rotateY(360deg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tech-globe-scene {
+    --node-depth: 240px;
+  }
+
+  .tech-globe-sphere {
+    height: 560px;
+    width: 560px;
+  }
+
+  .tech-globe-longitude {
+    inset: 28px;
+  }
+
+  .tech-stack-node {
+    transform: scale(1.16);
+    transform-origin: center;
+  }
+}
+
+@media (min-width: 1440px) {
+  .tech-globe-scene {
+    --node-depth: 280px;
+  }
+
+  .tech-globe-sphere {
+    height: 640px;
+    width: 640px;
+  }
+
+  .tech-globe-longitude {
+    inset: 32px;
+  }
 }
