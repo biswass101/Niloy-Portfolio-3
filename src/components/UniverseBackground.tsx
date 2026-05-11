@@ -16,6 +16,9 @@ type ShootingStar = {
   duration: number;
   delay: number;
   repeatDelay: number;
+  travelX: number;
+  travelY: number;
+  tailWidth: number;
 };
 
 type FloatingSkill = {
@@ -65,10 +68,30 @@ const starParticles: StarParticle[] = [
   { left: "94%", top: "89%", size: 1, duration: 4.3, delay: 0.8 },
 ];
 
+const parsePercent = (value: string) => Number.parseFloat(value.replace("%", ""));
+const wrapPercent = (value: number) => `${((value % 100) + 100) % 100}%`;
+
+const denseStarParticles: StarParticle[] = [
+  ...starParticles,
+  ...starParticles.map((star, idx) => ({
+    left: wrapPercent(parsePercent(star.left) + (idx % 2 === 0 ? 3.6 : -2.9)),
+    top: wrapPercent(parsePercent(star.top) + (idx % 3 === 0 ? 5.1 : -4.3)),
+    size: idx % 4 === 0 ? 2 : 1,
+    duration: Math.max(2.8, star.duration - 0.7 + (idx % 5) * 0.08),
+    delay: (star.delay + idx * 0.11) % 3,
+  })),
+];
+
 const shootingStars: ShootingStar[] = [
-  { left: "12%", top: "6%", duration: 1.1, delay: 1.8, repeatDelay: 20 },
-  { left: "54%", top: "14%", duration: 1.3, delay: 8.5, repeatDelay: 18 },
-  { left: "74%", top: "9%", duration: 1.2, delay: 14.2, repeatDelay: 22 },
+  { left: "-16%", top: "-18%", duration: 1.55, delay: 0.8, repeatDelay: 7, travelX: 2300, travelY: 1540, tailWidth: 124 },
+  { left: "-8%", top: "-10%", duration: 1.7, delay: 2.4, repeatDelay: 8, travelX: 2300, travelY: 1540, tailWidth: 136 },
+  { left: "0%", top: "-15%", duration: 1.6, delay: 4.1, repeatDelay: 7.5, travelX: 2300, travelY: 1540, tailWidth: 128 },
+  { left: "10%", top: "-12%", duration: 1.8, delay: 6.2, repeatDelay: 8.4, travelX: 2300, travelY: 1540, tailWidth: 140 },
+  { left: "-20%", top: "-4%", duration: 1.65, delay: 8.1, repeatDelay: 7.8, travelX: 2300, travelY: 1540, tailWidth: 118 },
+  { left: "4%", top: "-2%", duration: 1.75, delay: 9.6, repeatDelay: 8.2, travelX: 2300, travelY: 1540, tailWidth: 132 },
+  { left: "-12%", top: "2%", duration: 1.7, delay: 11.3, repeatDelay: 7.3, travelX: 2300, travelY: 1540, tailWidth: 126 },
+  { left: "14%", top: "-6%", duration: 1.85, delay: 13, repeatDelay: 8.6, travelX: 2300, travelY: 1540, tailWidth: 144 },
+  { left: "-6%", top: "6%", duration: 1.65, delay: 14.8, repeatDelay: 7.9, travelX: 2300, travelY: 1540, tailWidth: 122 },
 ];
 
 const floatingSkills: FloatingSkill[] = [
@@ -136,19 +159,21 @@ const UniverseBackground = () => {
         </motion.div>
       </div>
 
-      {starParticles.map((star, idx) => (
+      {denseStarParticles.map((star, idx) => (
         <motion.span
           key={`${star.left}-${star.top}-${idx}`}
-          className="absolute rounded-full bg-foreground/90"
+          className="absolute rounded-full bg-foreground"
           style={{
             left: star.left,
             top: star.top,
             width: star.size,
             height: star.size,
+            boxShadow:
+              star.size > 1 ? "0 0 10px hsl(var(--foreground) / 0.45)" : "0 0 6px hsl(var(--foreground) / 0.25)",
           }}
           animate={{
-            opacity: [0.25, 0.95, 0.25],
-            scale: [1, 1.35, 1],
+            opacity: [0.14, 1, 0.2],
+            scale: [0.85, 1.65, 0.9],
           }}
           transition={{
             duration: star.duration,
@@ -160,20 +185,34 @@ const UniverseBackground = () => {
       ))}
 
       {shootingStars.map((shootingStar, idx) => (
-        <motion.span
+        <motion.div
           key={`${shootingStar.left}-${shootingStar.top}-${idx}`}
-          className="absolute h-px w-20 bg-gradient-to-r from-primary/0 via-primary/80 to-primary/0"
-          style={{ left: shootingStar.left, top: shootingStar.top, rotate: "-25deg" }}
+          className="absolute"
+          style={{ left: shootingStar.left, top: shootingStar.top, rotate: "34deg" }}
           initial={{ x: -120, y: -40, opacity: 0 }}
-          animate={{ x: [0, 200], y: [0, 140], opacity: [0, 1, 0] }}
+          animate={{ x: [0, shootingStar.travelX], y: [0, shootingStar.travelY], opacity: [0, 1, 0] }}
           transition={{
-            duration: shootingStar.duration,
+            duration: shootingStar.duration * 1.28,
             delay: shootingStar.delay,
             repeat: Infinity,
             repeatDelay: shootingStar.repeatDelay,
             ease: "easeInOut",
           }}
-        />
+        >
+          <span
+            className="absolute left-0 top-1/2 h-[1.5px] -translate-y-1/2 rounded-full bg-gradient-to-r from-white via-primary/95 to-primary/0"
+            style={{
+              width: shootingStar.tailWidth,
+              filter: "blur(0.35px)",
+            }}
+          />
+          <span
+            className="absolute left-0 top-1/2 h-[5px] w-[5px] -translate-y-1/2 rounded-full bg-white"
+            style={{
+              boxShadow: "0 0 14px hsl(var(--primary) / 0.95), 0 0 30px hsl(var(--primary) / 0.5)",
+            }}
+          />
+        </motion.div>
       ))}
 
       {floatingSkills.map((skill) => (
