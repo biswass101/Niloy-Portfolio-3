@@ -250,7 +250,7 @@ const ProfilePage = async () => {
 
             <p className="text-muted-foreground text-base leading-relaxed mb-6">
               I am currently in 4th Year (8th Semester), studying at City University, Dhaka, Bangladesh, with
-              a CGPA of 3.50/4.00 and an expected graduation year of 2027.
+              a CGPA of 3.50/4.00 and an expected graduation year of 2026.
             </p>
           </article>
 
@@ -283,7 +283,7 @@ const ProfilePage = async () => {
                   </p>
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <CalendarClock size={14} className="text-primary" />
-                    2027 (Expected)
+                    2026 (Expected)
                   </p>
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <Star size={14} className="text-primary" />

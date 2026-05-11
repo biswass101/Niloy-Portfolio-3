@@ -10,6 +10,7 @@ import {
   FolderKanban,
   House,
   Menu,
+  Trophy,
   User,
   X,
   type LucideIcon,
@@ -25,6 +26,7 @@ const links: NavLinkItem[] = [
   { label: "Home", href: "/", icon: House },
   { label: "Projects", href: "/projects", icon: FolderKanban },
   { label: "Experiences", href: "/experiences", icon: BriefcaseBusiness },
+  { label: "Awards & Certifications", href: "/certifications", icon: Trophy },
   { label: "Skills", href: "/technical-expertise", icon: Cpu },
   { label: "About me", href: "/profile", icon: User },
 ];
@@ -86,7 +88,7 @@ const Navbar = () => {
                   <span
                     className={`overflow-hidden whitespace-nowrap font-mono text-xs tracking-wide transition-all duration-300 ${
                       hoveredLabel === link.label
-                        ? "ml-2 max-w-32 opacity-100"
+                        ? "ml-2 max-w-56 opacity-100"
                         : "ml-0 max-w-0 opacity-0"
                     }`}
                   >

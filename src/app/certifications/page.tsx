@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, Award, ExternalLink, Trophy } from "lucide-react";
+import CertificationPreviewDialog from "@/components/CertificationPreviewDialog";
+import ProjectImageSlider from "@/components/ProjectImageSlider";
 import UniverseBackground from "@/components/UniverseBackground";
 import { certifications } from "@/data/certifications";
 
@@ -29,34 +31,53 @@ const CertificationsPage = () => {
           {certifications.map((item) => (
             <article
               key={item.id}
-              className="group rounded-2xl border border-border/50 bg-gradient-to-br from-card/90 via-card/70 to-background/80 p-6 transition-all duration-300 hover:border-primary/35 hover:shadow-[0_0_30px_hsl(var(--primary)/0.08)]"
+              className="group relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-card/90 via-card/70 to-background/80 p-6 transition-all duration-300 hover:border-primary/35 hover:shadow-[0_0_30px_hsl(var(--primary)/0.08)]"
             >
-              <div className="mb-4 flex items-start justify-between gap-3">
-                <span className="inline-flex items-center gap-2 rounded-md border border-primary/30 bg-primary/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-primary">
-                  {item.type === "award" ? <Trophy size={12} /> : <Award size={12} />}
-                  {item.type}
-                </span>
-                <span className="rounded-md bg-secondary px-2 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-muted-foreground">
-                  {item.status === "completed" ? "Completed" : "In Progress"}
-                </span>
+              <div className="pointer-events-none absolute bottom-4 right-4 z-20 h-28 w-44 translate-y-2 overflow-hidden rounded-lg border border-primary/25 bg-background/70 opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 md:h-32 md:w-52">
+                <ProjectImageSlider
+                  images={item.images}
+                  sizes="(max-width: 768px) 176px, 208px"
+                  imageClassName="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/45 to-transparent" />
               </div>
+              <div className="relative z-10 transition-opacity duration-300 group-hover:opacity-80">
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <span className="inline-flex items-center gap-2 rounded-md border border-primary/30 bg-primary/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-primary">
+                    {item.type === "award" ? <Trophy size={12} /> : <Award size={12} />}
+                    {item.type}
+                  </span>
+                  <span className="rounded-md bg-secondary px-2 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-muted-foreground">
+                    {item.status === "completed" ? "Completed" : "In Progress"}
+                  </span>
+                </div>
 
-              <h2 className="font-mono text-lg font-semibold text-foreground">{item.title}</h2>
-              <p className="mt-2 text-sm text-primary">{item.issuer}</p>
-              <p className="mt-1 text-xs font-mono text-muted-foreground">{item.period}</p>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.details}</p>
+                <h2 className="font-mono text-lg font-semibold text-foreground">{item.title}</h2>
+                <p className="mt-2 text-sm text-primary">{item.issuer}</p>
+                <p className="mt-1 text-xs font-mono text-muted-foreground">{item.period}</p>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.details}</p>
 
-              {item.credentialUrl ? (
-                <Link
-                  href={item.credentialUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.12em] text-primary transition-colors hover:text-primary/80"
-                >
-                  View credential
-                  <ExternalLink size={13} />
-                </Link>
-              ) : null}
+                {item.credentialUrl ? (
+                  <Link
+                    href={item.credentialUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-5 inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.12em] text-primary transition-colors hover:text-primary/80"
+                  >
+                    View credential
+                    <ExternalLink size={13} />
+                  </Link>
+                ) : null}
+
+                <CertificationPreviewDialog certification={item}>
+                  <button
+                    type="button"
+                    className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-border/60 px-3 py-2 text-xs font-mono uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  >
+                    Full view
+                  </button>
+                </CertificationPreviewDialog>
+              </div>
             </article>
           ))}
         </section>
