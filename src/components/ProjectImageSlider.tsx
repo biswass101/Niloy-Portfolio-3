@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from "next/image";
 import { useEffect, useState } from "react";
 
 type ProjectImage = {
-  src: StaticImageData;
+  src: StaticImageData | string;
   alt: string;
 };
 

@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowLeft, Award, ExternalLink, Trophy } from "lucide-react";
 import CertificationPreviewDialog from "@/components/CertificationPreviewDialog";
 import ProjectImageSlider from "@/components/ProjectImageSlider";
 import UniverseBackground from "@/components/UniverseBackground";
-import { certifications } from "@/data/certifications";
+import { usePortfolioContent } from "@/hooks/use-portfolio-content";
 
 const CertificationsPage = () => {
+  const { content } = usePortfolioContent();
+
   return (
     <main className="relative min-h-screen bg-background section-padding">
       <UniverseBackground />
@@ -28,7 +32,7 @@ const CertificationsPage = () => {
         </section>
 
         <section className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {certifications.map((item) => (
+          {content.certifications.map((item) => (
             <article
               key={item.id}
               className="group relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-card/90 via-card/70 to-background/80 p-6 transition-all duration-300 hover:border-primary/35 hover:shadow-[0_0_30px_hsl(var(--primary)/0.08)]"

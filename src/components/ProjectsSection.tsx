@@ -4,11 +4,15 @@ import { Expand } from "lucide-react";
 import { ExternalLink, Github } from "lucide-react";
 import ProjectImageSlider from "@/components/ProjectImageSlider";
 import ProjectPreviewDialog from "@/components/ProjectPreviewDialog";
-import { projects } from "@/data/projects";
+import type { PortfolioProject } from "@/types/cms";
 
-const featuredProjects = projects.slice(0, 3);
+type ProjectsSectionProps = {
+  projects: PortfolioProject[];
+};
 
-const ProjectsSection = () => {
+const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
+  const featuredProjects = projects.filter((project) => project.featured !== false).slice(0, 3);
+
   return (
     <section id="projects" className="section-padding">
       <div className="max-w-6xl mx-auto">

@@ -21,25 +21,11 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { PortfolioSkillCategory } from "@/types/cms";
 
-const skillCategories = [
-  {
-    title: "Languages",
-    skills: ["C/C++", "Python", "JavaScript", "TypeScript", "SQL"],
-  },
-  {
-    title: "Frontend",
-    skills: ["React.js", "Next.js", "Nuxt.js", "Vue.js", "Tailwind CSS"],
-  },
-  {
-    title: "Backend",
-    skills: ["Node.js", "Express.js", "NestJS", "REST APIs", "MongoDB", "PostgreSQL"],
-  },
-  {
-    title: "DevOps & Tools",
-    skills: ["Docker", "CI/CD", "Linux", "AWS", "Kubernetes", "PM2", "Redis", "Git"],
-  },
-];
+type SkillsSectionProps = {
+  skillCategories: PortfolioSkillCategory[];
+};
 
 const skillIcons: Record<string, LucideIcon> = {
   "C/C++": Braces,
@@ -68,7 +54,7 @@ const skillIcons: Record<string, LucideIcon> = {
   Git: GitBranch,
 };
 
-const SkillsSection = () => {
+const SkillsSection = ({ skillCategories }: SkillsSectionProps) => {
   return (
     <section id="skills" className="section-padding">
       <div className="max-w-6xl mx-auto">

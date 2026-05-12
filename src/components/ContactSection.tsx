@@ -13,16 +13,11 @@ import {
   ScrollText,
   type LucideIcon,
 } from "lucide-react";
+import type { PortfolioContactContent } from "@/types/cms";
 
-const workflowSteps: { label: string; icon: LucideIcon }[] = [
-  { label: "Idea", icon: Lightbulb },
-  { label: "Plan", icon: ScrollText },
-  { label: "Brainstorm + AI Help", icon: BrainCircuit },
-  { label: "Code Review", icon: CheckCheck },
-  { label: "Test", icon: Bug },
-  { label: "Learning", icon: GraduationCap },
-  { label: "Delivery", icon: Rocket },
-];
+type ContactSectionProps = {
+  contact: PortfolioContactContent;
+};
 
 const VIEWPORT_WIDTH = 960;
 const VIEWPORT_HEIGHT = 160;
@@ -36,12 +31,21 @@ const STEP_T_POSITIONS = [0, 1 / 12, 3 / 12, 5 / 12, 7 / 12, 9 / 12, 1];
 const yOnWave = (t: number) => WAVE_MID_Y + WAVE_AMPLITUDE * -Math.sin(2 * Math.PI * WAVE_CYCLES * t);
 const fmt = (value: number) => Number(value.toFixed(3));
 
-const workflowNodes = workflowSteps.map((step, index) => {
-  const t = STEP_T_POSITIONS[index] ?? 0;
-  const x = fmt(WAVE_START_X + (WAVE_END_X - WAVE_START_X) * t);
-  const y = fmt(yOnWave(t));
-  return { ...step, x, y };
-});
+const iconByWorkflowLabel: Record<string, LucideIcon> = {
+  Idea: Lightbulb,
+  Plan: ScrollText,
+  "Brainstorm + AI Help": BrainCircuit,
+  "Code Review": CheckCheck,
+  Test: Bug,
+  Learning: GraduationCap,
+  Delivery: Rocket,
+};
+
+const iconByContactLabel: Record<string, LucideIcon> = {
+  Mail,
+  GitHub: Github,
+  LinkedIn: Linkedin,
+};
 
 const buildWavePath = (samples = 180) => {
   let path = "";
@@ -56,29 +60,15 @@ const buildWavePath = (samples = 180) => {
   return path;
 };
 
-const contacts = [
-  {
-    label: "Mail",
-    value: "biswassnaeemcse@gmail.com",
-    href: "mailto:biswassnaeemcse@gmail.com",
-    icon: Mail,
-  },
-  {
-    label: "GitHub",
-    value: "github.com/biswass101",
-    href: "https://github.com/biswass101",
-    icon: Github,
-  },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/niloy097",
-    href: "https://linkedin.com/in/niloy097",
-    icon: Linkedin,
-  },
-];
-
-const ContactSection = () => {
+const ContactSection = ({ contact }: ContactSectionProps) => {
   const workflowScrollerRef = useRef<HTMLDivElement | null>(null);
+  const workflowNodes = contact.workflowSteps.map((step, index) => {
+    const t = STEP_T_POSITIONS[index] ?? 0;
+    const x = fmt(WAVE_START_X + (WAVE_END_X - WAVE_START_X) * t);
+    const y = fmt(yOnWave(t));
+    const icon = iconByWorkflowLabel[step.label] || ScrollText;
+    return { ...step, x, y, icon };
+  });
 
   useEffect(() => {
     const scroller = workflowScrollerRef.current;
@@ -138,7 +128,7 @@ const ContactSection = () => {
           <p className="text-primary text-xs uppercase tracking-[0.2em] font-mono mb-3">Let&apos;s Collaborate</p>
           <h2 className="text-3xl md:text-4xl font-bold font-mono mb-3">Get In Touch</h2>
           <p className="max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed">
-            I enjoy working on meaningful products from idea to delivery. Here is the workflow I usually follow.
+            {contact.intro}
           </p>
           <div className="w-20 h-0.5 bg-primary/50 mt-5" />
         </motion.div>
@@ -220,12 +210,16 @@ const ContactSection = () => {
           <h3 className="font-mono text-primary text-sm uppercase tracking-[0.18em] mb-5">Hit me up</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {contacts.map(({ label, value, href, icon: Icon }) => (
+            {contact.contacts.map(({ label, value, href }) => {
+              const Icon = iconByContactLabel[label] || Mail;
+              const isExternal = href.startsWith("http");
+
+              return (
               <a
                 key={label}
                 href={href}
-                target={label === "Mail" ? undefined : "_blank"}
-                rel={label === "Mail" ? undefined : "noopener noreferrer"}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className="group rounded-lg border border-border/70 bg-card/30 p-4 transition-all duration-300 hover:border-primary/35 hover:bg-primary/10"
               >
                 <div className="flex items-center gap-2 text-primary mb-2">
@@ -236,7 +230,8 @@ const ContactSection = () => {
                   {value}
                 </p>
               </a>
-            ))}
+              );
+            })}
           </div>
         </motion.article>
       </div>

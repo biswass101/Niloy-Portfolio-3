@@ -2,23 +2,21 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Github, Linkedin, Mail, MapPin, ExternalLink, FileText } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, ExternalLink, FileText, Link as LinkIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { PortfolioHeroContent } from "@/types/cms";
 
-const titles = [
-  "Full Stack Developer",
-  "Software Engineer",
-  "MERN Stack Expert",
-  "DevOps Enthusiast",
-];
+type HeroSectionProps = {
+  hero: PortfolioHeroContent;
+};
 
-const HeroSection = () => {
+const HeroSection = ({ hero }: HeroSectionProps) => {
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentTitle = titles[titleIndex];
+    const currentTitle = hero.titles[titleIndex] || "";
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
@@ -30,14 +28,14 @@ const HeroSection = () => {
           setDisplayText(currentTitle.slice(0, displayText.length - 1));
           if (displayText.length === 0) {
             setIsDeleting(false);
-            setTitleIndex((prev) => (prev + 1) % titles.length);
+            setTitleIndex((prev) => (prev + 1) % Math.max(hero.titles.length, 1));
           }
         }
       },
       isDeleting ? 50 : 100
     );
     return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, titleIndex]);
+  }, [displayText, hero.titles, isDeleting, titleIndex]);
 
   const scrollToNextSection = () => {
     const nextSection = document.querySelector("#projects");
@@ -64,12 +62,12 @@ const HeroSection = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            {"< Hello World />"}
+            {hero.greeting}
           </motion.p>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 font-mono">
-            <span className="text-foreground">Naeem Biswass</span>{" "}
-            <span className="text-gradient">Niloy</span>
+            <span className="text-foreground">{hero.firstName}</span>{" "}
+            <span className="text-gradient">{hero.highlightedName}</span>
           </h1>
 
           <div className="h-10 md:h-12 flex items-center justify-center mb-8">
@@ -84,9 +82,7 @@ const HeroSection = () => {
           </div>
 
           <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            Full Stack Developer with hands-on experience in MERN stack, DevOps
-            fundamentals, and competitive programming. Building scalable
-            solutions from Dhaka, Bangladesh.
+            {hero.summary}
           </p>
 
           <motion.div
@@ -96,7 +92,7 @@ const HeroSection = () => {
             transition={{ delay: 0.5 }}
           >
             <a
-              href="/resume.pdf"
+              href={hero.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg neon-border bg-primary/12 px-5 py-2.5 font-mono text-sm text-primary transition-all duration-300 hover:bg-primary/20"
@@ -113,12 +109,19 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            {[
-              { icon: Github, href: "https://github.com/biswass101", label: "GitHub" },
-              { icon: Linkedin, href: "https://linkedin.com/in/niloy097", label: "LinkedIn" },
-              { icon: Mail, href: "mailto:biswassnaeemcse@gmail.com", label: "Email" },
-              { icon: ExternalLink, href: "https://niloybiswass.xyz", label: "Website" },
-            ].map(({ icon: Icon, href, label }) => (
+            {hero.socials.map(({ href, label }) => {
+              const Icon =
+                label === "GitHub"
+                  ? Github
+                  : label === "LinkedIn"
+                    ? Linkedin
+                    : label === "Email"
+                      ? Mail
+                      : label === "Website"
+                        ? ExternalLink
+                        : LinkIcon;
+
+              return (
               <a
                 key={label}
                 href={href}
@@ -132,7 +135,8 @@ const HeroSection = () => {
                   {label}
                 </span>
               </a>
-            ))}
+              );
+            })}
           </motion.div>
 
           <motion.div
@@ -142,7 +146,7 @@ const HeroSection = () => {
             transition={{ delay: 0.8 }}
           >
             <MapPin size={14} className="text-primary" />
-            <span>Dhaka, Bangladesh</span>
+            <span>{hero.location}</span>
           </motion.div>
         </motion.div>
       </div>

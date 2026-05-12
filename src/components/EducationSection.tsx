@@ -2,22 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { GraduationCap, ArrowUpRight, Award, Trophy } from "lucide-react";
-import cityUniversity from "@/assets/city_uni.jpg";
-import { certifications } from "@/data/certifications";
+import type { PortfolioCertification, PortfolioEducationContent } from "@/types/cms";
 
-const education = {
-  title: "B.Sc. in Computer Science and Engineering",
-  organization: "City University, Dhaka",
-  period: "July 2022 - Present",
-  details: [
-    "8th Semester · CGPA: 3.50/4.00",
-    "Core focus: OOP, Databases, Data Structures, Algorithms, OS, Networks, ML",
-  ],
+type EducationSectionProps = {
+  education: PortfolioEducationContent;
+  certifications: PortfolioCertification[];
 };
 
-const awards = certifications.slice(0, 4);
+const EducationSection = ({ education, certifications }: EducationSectionProps) => {
+  const awards = certifications.slice(0, 4);
 
-const EducationSection = () => {
   return (
     <section id="education" className="section-padding">
       <div className="max-w-6xl mx-auto">
@@ -50,7 +44,7 @@ const EducationSection = () => {
 
               <div className="group relative overflow-hidden rounded-lg glass p-6">
                 <Image
-                  src={cityUniversity}
+                  src={education.backgroundImageUrl || "/placeholder.svg"}
                   alt="City University campus"
                   fill
                   className="object-cover opacity-40 transition-all duration-500 group-hover:opacity-55 group-hover:scale-[1.02]"

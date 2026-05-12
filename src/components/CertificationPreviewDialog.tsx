@@ -3,11 +3,11 @@ import Link from "next/link";
 import { Award, ExternalLink, Trophy } from "lucide-react";
 
 import ProjectImageSlider from "@/components/ProjectImageSlider";
-import type { CertificationItem } from "@/data/certifications";
+import type { PortfolioCertification } from "@/types/cms";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 type CertificationPreviewDialogProps = {
-  certification: CertificationItem;
+  certification: PortfolioCertification;
   children: ReactNode;
 };
 

@@ -6,9 +6,11 @@ import { ArrowLeft, Expand, ExternalLink, Github } from "lucide-react";
 import ProjectImageSlider from "@/components/ProjectImageSlider";
 import ProjectPreviewDialog from "@/components/ProjectPreviewDialog";
 import UniverseBackground from "@/components/UniverseBackground";
-import { projects } from "@/data/projects";
+import { usePortfolioContent } from "@/hooks/use-portfolio-content";
 
 const ProjectsPage = () => {
+  const { content } = usePortfolioContent();
+
   return (
     <div className="relative min-h-screen bg-background">
       <UniverseBackground />
@@ -42,9 +44,9 @@ const ProjectsPage = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, idx) => (
+            {content.projects.map((project, idx) => (
               <motion.div
-                key={project.title}
+                key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + idx * 0.08 }}

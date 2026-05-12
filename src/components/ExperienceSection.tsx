@@ -1,36 +1,14 @@
 import { motion } from "framer-motion";
 import { Briefcase } from "lucide-react";
+import type { PortfolioExperience } from "@/types/cms";
 
-const experiences = [
-  {
-    title: "Associate Software Engineer",
-    company: "ReturnHex",
-    location: "Uttara (Remote)",
-    period: "Oct 2025 - Present",
-    highlights: [
-      "Built v1 of a social media chatbot integrating OpenAI with Meta platforms (Facebook, Instagram) for automated messaging and order handling.",
-      "Implemented image/voice message processing and stabilized Meta Webhook integrations.",
-      "Reduced OpenAI token usage by 30% through optimized prompt engineering; introduced Redis caching and rate limiting.",
-      "Contributing to v2 with BullMQ message queuing, Docker, CI/CD, and PM2 for scalability.",
-    ],
-    tech: ["Node.js", "Express.js", "MongoDB", "OpenAI", "Redis", "BullMQ", "Docker"],
-  },
-  {
-    title: "Software Developer Intern",
-    company: "ReturnHex",
-    location: "Uttara (Remote)",
-    period: "April 2025 - Oct 2025",
-    highlights: [
-      "Rebuilt an Education Management System with Next.js, fixing deployment and codebase issues.",
-      "Built a travel agency portfolio using Nuxt.js with animations and improved SEO.",
-      "Contributed to backend development with Node.js, Express.js, and MongoDB.",
-      "Initiated an MVP social media automation system with OpenAI APIs.",
-    ],
-    tech: ["Next.js", "Nuxt.js", "Node.js", "MongoDB", "NestJS", "PostgreSQL"],
-  },
-];
+type ExperienceSectionProps = {
+  experiences: PortfolioExperience[];
+};
 
-const ExperienceSection = () => {
+const ExperienceSection = ({ experiences }: ExperienceSectionProps) => {
+  if (experiences.length === 0) return null;
+
   const sameCompanyAndLocation = experiences.every(
     (exp) =>
       exp.company === experiences[0].company &&
@@ -65,7 +43,7 @@ const ExperienceSection = () => {
 
           {experiences.map((exp, idx) => (
             <motion.div
-              key={idx}
+              key={exp.id || idx}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

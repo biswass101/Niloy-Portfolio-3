@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 import { ExternalLink, Github } from "lucide-react";
 
-import type { Project } from "@/data/projects";
 import ProjectImageSlider from "@/components/ProjectImageSlider";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import type { PortfolioProject } from "@/types/cms";
 
 type ProjectPreviewDialogProps = {
-  project: Project;
+  project: PortfolioProject;
   children: ReactNode;
 };
 

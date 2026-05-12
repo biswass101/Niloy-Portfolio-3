@@ -9,19 +9,22 @@ import EducationSection from "@/components/EducationSection";
 import ContactSection from "@/components/ContactSection";
 import ScrollToTop from "@/components/ScrollToTop";
 import UniverseBackground from "@/components/UniverseBackground";
+import { usePortfolioContent } from "@/hooks/use-portfolio-content";
 
 const HomePage = () => {
+  const { content } = usePortfolioContent();
+
   return (
     <div className="relative min-h-screen bg-background">
       <UniverseBackground />
       <div className="relative z-10">
-        <HeroSection />
-        <ProjectsSection />
-        <AboutSection />
-        <ExperienceSection />
-        <SkillsSection />
-        <EducationSection />
-        <ContactSection />
+        <HeroSection hero={content.hero} />
+        <ProjectsSection projects={content.projects} />
+        <AboutSection about={content.about} />
+        <ExperienceSection experiences={content.experiences} />
+        <SkillsSection skillCategories={content.skillCategories} />
+        <EducationSection education={content.education} certifications={content.certifications} />
+        <ContactSection contact={content.contact} />
         <ScrollToTop />
       </div>
     </div>
