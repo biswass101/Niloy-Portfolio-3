@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, MapPin, ExternalLink, FileText, Link as LinkIcon } from "lucide-react";
+import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { PortfolioHeroContent } from "@/types/cms";
 
@@ -109,7 +110,7 @@ const HeroSection = ({ hero }: HeroSectionProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            {hero.socials.map(({ href, label }) => {
+            {hero.socials.map(({ href, label, iconUrl }) => {
               const Icon =
                 label === "GitHub"
                   ? Github
@@ -130,7 +131,17 @@ const HeroSection = ({ hero }: HeroSectionProps) => {
                 className="group inline-flex items-center rounded-lg neon-border bg-card/50 px-3 py-3 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
                 aria-label={label}
               >
-                <Icon size={20} className="shrink-0" />
+                {iconUrl ? (
+                  <Image
+                    src={iconUrl}
+                    alt={`${label} icon`}
+                    width={20}
+                    height={20}
+                    className="h-5 w-5 shrink-0 object-contain"
+                  />
+                ) : (
+                  <Icon size={20} className="shrink-0" />
+                )}
                 <span className="ml-0 max-w-0 overflow-hidden whitespace-nowrap font-mono text-xs opacity-0 transition-all duration-300 group-hover:ml-2 group-hover:max-w-24 group-hover:opacity-100">
                   {label}
                 </span>

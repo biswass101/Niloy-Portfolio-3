@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   BrainCircuit,
   Bug,
@@ -188,7 +189,17 @@ const ContactSection = ({ contact }: ContactSectionProps) => {
                         className={`whitespace-nowrap rounded-md border border-primary/25 bg-card/75 px-2.5 py-1.5 text-[10px] md:text-xs font-mono text-primary backdrop-blur-sm transition-colors duration-300 group-hover:bg-primary/15 ${isUpper ? "-translate-y-[54px]" : "translate-y-[14px]"}`}
                       >
                         <span className="inline-flex items-center gap-1.5">
-                          <Icon size={12} />
+                          {step.iconUrl ? (
+                            <Image
+                              src={step.iconUrl}
+                              alt={`${step.label} icon`}
+                              width={12}
+                              height={12}
+                              className="h-3 w-3 object-contain"
+                            />
+                          ) : (
+                            <Icon size={12} />
+                          )}
                           {step.label}
                         </span>
                       </div>
@@ -210,7 +221,7 @@ const ContactSection = ({ contact }: ContactSectionProps) => {
           <h3 className="font-mono text-primary text-sm uppercase tracking-[0.18em] mb-5">Hit me up</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {contact.contacts.map(({ label, value, href }) => {
+            {contact.contacts.map(({ label, value, href, iconUrl }) => {
               const Icon = iconByContactLabel[label] || Mail;
               const isExternal = href.startsWith("http");
 
@@ -223,7 +234,17 @@ const ContactSection = ({ contact }: ContactSectionProps) => {
                 className="group rounded-lg border border-border/70 bg-card/30 p-4 transition-all duration-300 hover:border-primary/35 hover:bg-primary/10"
               >
                 <div className="flex items-center gap-2 text-primary mb-2">
-                  <Icon size={16} />
+                  {iconUrl ? (
+                    <Image
+                      src={iconUrl}
+                      alt={`${label} icon`}
+                      width={16}
+                      height={16}
+                      className="h-4 w-4 object-contain"
+                    />
+                  ) : (
+                    <Icon size={16} />
+                  )}
                   <p className="font-mono text-xs uppercase tracking-[0.14em]">{label}</p>
                 </div>
                 <p className="text-sm text-muted-foreground break-all transition-colors duration-300 group-hover:text-foreground/90">

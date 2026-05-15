@@ -27,7 +27,13 @@ export const PUT = async (request: Request) => {
     return NextResponse.json({ message: "Content payload is required" }, { status: 400 });
   }
 
-  const updated = await savePortfolioContent(payload, auth.user.email);
+  let updated: PortfolioContent;
+  try {
+    updated = await savePortfolioContent(payload, auth.user.email);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to validate and save content";
+    return NextResponse.json({ message }, { status: 400 });
+  }
 
   return NextResponse.json({
     message: "Portfolio content updated successfully",

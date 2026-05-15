@@ -49,6 +49,7 @@ export type PortfolioCertification = {
 export type PortfolioHeroSocialLink = {
   label: string;
   href: string;
+  iconUrl?: string;
 };
 
 export type PortfolioHeroContent = {
@@ -84,12 +85,14 @@ export type PortfolioEducationContent = {
 
 export type PortfolioWorkflowStep = {
   label: string;
+  iconUrl?: string;
 };
 
 export type PortfolioContactMethod = {
   label: string;
   value: string;
   href: string;
+  iconUrl?: string;
 };
 
 export type PortfolioContactContent = {
