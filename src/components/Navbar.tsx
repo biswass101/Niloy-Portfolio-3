@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  Shield,
   BriefcaseBusiness,
   Cpu,
   FolderKanban,
@@ -34,7 +35,36 @@ const links: NavLinkItem[] = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkAdminSession = async () => {
+      try {
+        const response = await fetch("/api/auth/me", {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        if (isMounted) {
+          setIsAdminLoggedIn(response.ok);
+        }
+      } catch {
+        if (isMounted) {
+          setIsAdminLoggedIn(false);
+        }
+      }
+    };
+
+    void checkAdminSession();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [pathname]);
 
   const handleNavClick = useCallback(() => {
     setOpen(false);
@@ -97,6 +127,32 @@ const Navbar = () => {
                 </Link>
               );
             })}
+
+            {isAdminLoggedIn ? (
+              <Link
+                href="/admin"
+                onClick={handleNavClick}
+                onMouseEnter={() => setHoveredLabel("Admin")}
+                onMouseLeave={() => setHoveredLabel(null)}
+                onFocus={() => setHoveredLabel("Admin")}
+                onBlur={() => setHoveredLabel(null)}
+                className={`group flex items-center rounded-full border px-3 py-2 transition-all duration-300 ${
+                  pathname === "/admin"
+                    ? "border-primary/50 bg-primary/15 text-primary shadow-[0_0_16px_hsl(var(--primary)/0.2)]"
+                    : "border-border/60 bg-card/40 text-muted-foreground hover:border-primary/40 hover:text-primary"
+                }`}
+                aria-label="Admin"
+              >
+                <Shield size={16} className="shrink-0" />
+                <span
+                  className={`overflow-hidden whitespace-nowrap font-mono text-xs tracking-wide transition-all duration-300 ${
+                    hoveredLabel === "Admin" ? "ml-2 max-w-56 opacity-100" : "ml-0 max-w-0 opacity-0"
+                  }`}
+                >
+                  Admin
+                </span>
+              </Link>
+            ) : null}
           </div>
 
           {/* Mobile toggle */}
@@ -133,6 +189,19 @@ const Navbar = () => {
                 </Link>
               );
             })}
+
+            {isAdminLoggedIn ? (
+              <Link
+                href="/admin"
+                onClick={handleNavClick}
+                className={`font-mono text-sm transition-colors flex items-center gap-2 ${
+                  pathname === "/admin" ? "text-primary" : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                <Shield size={16} />
+                Admin
+              </Link>
+            ) : null}
           </motion.div>
         )}
       </div>

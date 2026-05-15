@@ -43,6 +43,8 @@ const sections: { key: SectionKey; label: string; help: string }[] = [
   { key: "certifications", label: "Certifications", help: "Awards and certificates" },
 ];
 
+const getSectionLabel = (section: SectionKey) => sections.find((item) => item.key === section)?.label || "Section";
+
 const cloneContent = (value: PortfolioContent) => JSON.parse(JSON.stringify(value)) as PortfolioContent;
 
 const toId = (input: string) =>
@@ -63,7 +65,7 @@ const AdminDashboard = ({ initialContent, adminEmail }: AdminDashboardProps) => 
   const router = useRouter();
   const [activeSection, setActiveSection] = useState<SectionKey>("overview");
   const [content, setContent] = useState<PortfolioContent>(() => cloneContent(initialContent));
-  const [status, setStatus] = useState("Visual CMS ready. Update any section and click Save Changes.");
+  const [status, setStatus] = useState("Visual CMS ready. Update any section and save from that section.");
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [lastUploadUrl, setLastUploadUrl] = useState("");
@@ -200,23 +202,6 @@ const AdminDashboard = ({ initialContent, adminEmail }: AdminDashboardProps) => 
                 disabled={isUploading}
               />
             </label>
-
-            <button
-              type="button"
-              onClick={handleSave}
-              disabled={isSaving}
-              className="rounded-md border border-primary/40 bg-primary/10 px-3 py-2 font-mono text-xs text-primary hover:bg-primary/20 disabled:opacity-60"
-            >
-              {isSaving ? "Saving..." : "Save Changes"}
-            </button>
-
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="rounded-md border border-border/70 bg-card/30 px-3 py-2 font-mono text-xs text-muted-foreground hover:border-primary/40 hover:text-primary"
-            >
-              Logout
-            </button>
           </div>
         </div>
 
@@ -232,26 +217,36 @@ const AdminDashboard = ({ initialContent, adminEmail }: AdminDashboardProps) => 
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[320px,minmax(0,1fr)]">
-        <aside className="rounded-2xl border border-border/60 bg-card/30 p-3 lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:overflow-y-auto">
-          <div className="space-y-2">
-            {sections.map((section) => {
-              const isActive = activeSection === section.key;
-              return (
-                <button
-                  key={section.key}
-                  type="button"
-                  onClick={() => setActiveSection(section.key)}
-                  className={`w-full rounded-lg border px-3 py-2 text-left transition ${
-                    isActive
-                      ? "border-primary/50 bg-primary/10 text-primary"
-                      : "border-border/60 bg-background/40 text-muted-foreground hover:border-primary/30 hover:text-foreground"
-                  }`}
-                >
-                  <p className="font-mono text-xs uppercase tracking-[0.14em]">{section.label}</p>
-                  <p className="mt-1 text-[11px] leading-relaxed">{section.help}</p>
-                </button>
-              );
-            })}
+        <aside className="rounded-2xl border border-border/60 bg-card/30 p-3 lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
+          <div className="flex h-full min-h-0 flex-col gap-3">
+            <div className="space-y-2 overflow-y-auto pr-1">
+              {sections.map((section) => {
+                const isActive = activeSection === section.key;
+                return (
+                  <button
+                    key={section.key}
+                    type="button"
+                    onClick={() => setActiveSection(section.key)}
+                    className={`w-full rounded-lg border px-3 py-2 text-left transition ${
+                      isActive
+                        ? "border-primary/50 bg-primary/10 text-primary"
+                        : "border-border/60 bg-background/40 text-muted-foreground hover:border-primary/30 hover:text-foreground"
+                    }`}
+                  >
+                    <p className="font-mono text-xs uppercase tracking-[0.14em]">{section.label}</p>
+                    <p className="mt-1 text-[11px] leading-relaxed">{section.help}</p>
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="mt-auto rounded-md border border-border/70 bg-card/30 px-3 py-2 font-mono text-xs text-muted-foreground hover:border-primary/40 hover:text-primary"
+            >
+              Logout
+            </button>
           </div>
         </aside>
 
@@ -1482,6 +1477,17 @@ const AdminDashboard = ({ initialContent, adminEmail }: AdminDashboardProps) => 
               ))}
             </section>
           ) : null}
+
+          <div className="mt-6 border-t border-border/60 pt-4">
+            <button
+              type="button"
+              onClick={handleSave}
+              disabled={isSaving}
+              className="rounded-md border border-primary/40 bg-primary/10 px-3 py-2 font-mono text-xs text-primary hover:bg-primary/20 disabled:opacity-60"
+            >
+              {isSaving ? "Saving..." : `Save ${getSectionLabel(activeSection)} Changes`}
+            </button>
+          </div>
         </main>
       </div>
     </div>
