@@ -14,12 +14,14 @@ export const POST = async (request: Request) => {
   }
 
   const folder = (formData.get("folder") as string) || "portfolio-cms";
+  const requestedResourceType = formData.get("resourceType");
+  const resourceType = requestedResourceType === "raw" ? "raw" : "image";
 
   try {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const uploaded = await uploadToCloudinary(buffer, folder);
+    const uploaded = await uploadToCloudinary(buffer, folder, resourceType);
 
     return NextResponse.json({
       message: "Upload successful",

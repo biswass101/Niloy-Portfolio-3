@@ -1,10 +1,16 @@
+import type { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import AdminDashboard from "@/components/admin/AdminDashboard";
 import { CMS_AUTH_COOKIE, verifyCmsToken } from "@/lib/auth";
 import { getAdminPortfolioContent } from "@/lib/cms-store";
+import AdminCmsProvider from "@/components/admin/AdminCmsProvider";
+import AdminShell from "@/components/admin/AdminShell";
 
-const AdminPage = async () => {
+type AdminProtectedLayoutProps = {
+  children: ReactNode;
+};
+
+const AdminProtectedLayout = async ({ children }: AdminProtectedLayoutProps) => {
   const cookieStore = await cookies();
   const token = cookieStore.get(CMS_AUTH_COOKIE)?.value;
 
@@ -21,7 +27,11 @@ const AdminPage = async () => {
 
   const content = await getAdminPortfolioContent();
 
-  return <AdminDashboard initialContent={content} adminEmail={decoded.email} />;
+  return (
+    <AdminCmsProvider initialContent={content} adminEmail={decoded.email}>
+      <AdminShell>{children}</AdminShell>
+    </AdminCmsProvider>
+  );
 };
 
-export default AdminPage;
+export default AdminProtectedLayout;

@@ -59,6 +59,7 @@ export type PortfolioHeroContent = {
   titles: string[];
   summary: string;
   resumeUrl: string;
+  resumePublicId?: string;
   location: string;
   socials: PortfolioHeroSocialLink[];
 };

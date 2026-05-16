@@ -102,6 +102,7 @@ export const defaultPortfolioContent: PortfolioContent = {
     summary:
       "Full Stack Developer with hands-on experience in MERN stack, DevOps fundamentals, and competitive programming. Building scalable solutions from Dhaka, Bangladesh.",
     resumeUrl: "/resume.pdf",
+    resumePublicId: "",
     location: "Dhaka, Bangladesh",
     socials: [
       { label: "GitHub", href: "https://github.com/biswass101" },

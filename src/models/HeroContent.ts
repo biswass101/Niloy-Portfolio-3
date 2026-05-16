@@ -17,6 +17,7 @@ const HeroSchema = new Schema(
     titles: [{ type: String, required: true, trim: true }],
     summary: { type: String, required: true, trim: true },
     resumeUrl: { type: String, required: true, trim: true },
+    resumePublicId: { type: String, trim: true, default: "" },
     location: { type: String, required: true, trim: true },
     socials: { type: [HeroSocialSchema], default: [] },
   },

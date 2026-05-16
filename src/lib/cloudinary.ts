@@ -25,7 +25,8 @@ const ensureCloudinary = () => {
 
 export const uploadToCloudinary = async (
   fileBuffer: Buffer,
-  folder = "portfolio-cms"
+  folder = "portfolio-cms",
+  resourceType: "image" | "raw" = "image"
 ): Promise<{ secureUrl: string; publicId: string }> => {
   ensureCloudinary();
 
@@ -33,7 +34,7 @@ export const uploadToCloudinary = async (
     const stream = cloudinary.uploader.upload_stream(
       {
         folder,
-        resource_type: "image",
+        resource_type: resourceType,
       },
       (error, result) => {
         if (error || !result) {
@@ -50,4 +51,17 @@ export const uploadToCloudinary = async (
 
     stream.end(fileBuffer);
   });
+};
+
+export const deleteFromCloudinary = async (
+  publicId: string,
+  resourceType: "image" | "raw" = "image"
+): Promise<{ result: string }> => {
+  ensureCloudinary();
+
+  const response = await cloudinary.uploader.destroy(publicId, {
+    resource_type: resourceType,
+  });
+
+  return { result: response.result };
 };
