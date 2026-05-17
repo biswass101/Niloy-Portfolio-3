@@ -28,6 +28,12 @@ const AdminShell = ({ children }: { children: ReactNode }) => {
       <div className="grid gap-4 lg:grid-cols-[320px,minmax(0,1fr)]">
         <aside className="rounded-2xl border border-border/60 bg-card/30 p-3 lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
           <div className="flex h-full min-h-0 flex-col gap-3">
+            <Link
+              href="/"
+              className="rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-center font-mono text-xs uppercase tracking-[0.12em] text-primary transition hover:border-primary/60 hover:bg-primary/20"
+            >
+              View Portfolio
+            </Link>
             <div className="space-y-2 overflow-y-auto pr-1">
               {sections.map((section) => {
                 const isActive = activeSection === section.key;

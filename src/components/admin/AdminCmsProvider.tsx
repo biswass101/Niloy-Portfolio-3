@@ -10,11 +10,12 @@ type UploadResult = { url: string; publicId: string };
 type AdminCmsContextValue = {
   adminEmail: string;
   content: PortfolioContent;
+  savedContent: PortfolioContent;
   setContent: React.Dispatch<React.SetStateAction<PortfolioContent>>;
   status: string;
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   isSaving: boolean;
-  saveContent: () => Promise<void>;
+  saveContent: (nextContent?: PortfolioContent) => Promise<boolean>;
   isUploading: boolean;
   uploadToCms: (
     file: File,
@@ -47,13 +48,15 @@ type AdminCmsProviderProps = {
 const AdminCmsProvider = ({ initialContent, adminEmail, children }: AdminCmsProviderProps) => {
   const router = useRouter();
   const [content, setContent] = useState<PortfolioContent>(() => cloneContent(initialContent));
+  const [savedContent, setSavedContent] = useState<PortfolioContent>(() => cloneContent(initialContent));
   const [status, setStatus] = useState("Visual CMS ready. Update any section and save from that section.");
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [lastUploadUrl, setLastUploadUrl] = useState("");
 
-  const saveContent = useCallback(async () => {
+  const saveContent = useCallback(async (nextContent?: PortfolioContent) => {
+    const payload = nextContent || content;
     setIsSaving(true);
     setStatus("Saving portfolio content to MongoDB...");
 
@@ -62,20 +65,23 @@ const AdminCmsProvider = ({ initialContent, adminEmail, children }: AdminCmsProv
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(content),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
     if (!response.ok) {
       setStatus(data.message || "Save failed.");
       setIsSaving(false);
-      return;
+      return false;
     }
 
-    setContent(cloneContent(data.content));
+    const savedNextContent = cloneContent(data.content);
+    setContent(savedNextContent);
+    setSavedContent(savedNextContent);
     setStatus("Saved successfully. Public portfolio now uses updated DB data.");
     setIsSaving(false);
     router.refresh();
+    return true;
   }, [content, router]);
 
   const uploadToCms = useCallback(
@@ -147,6 +153,7 @@ const AdminCmsProvider = ({ initialContent, adminEmail, children }: AdminCmsProv
     () => ({
       adminEmail,
       content,
+      savedContent,
       setContent,
       status,
       setStatus,
@@ -161,6 +168,7 @@ const AdminCmsProvider = ({ initialContent, adminEmail, children }: AdminCmsProv
     [
       adminEmail,
       content,
+      savedContent,
       status,
       isSaving,
       saveContent,

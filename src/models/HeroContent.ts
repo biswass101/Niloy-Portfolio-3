@@ -5,6 +5,7 @@ const HeroSocialSchema = new Schema(
     label: { type: String, required: true, trim: true },
     href: { type: String, required: true, trim: true },
     iconUrl: { type: String, trim: true, default: "" },
+    iconPublicId: { type: String, trim: true, default: "" },
   },
   { _id: false }
 );

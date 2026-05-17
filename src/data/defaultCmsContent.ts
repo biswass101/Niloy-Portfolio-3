@@ -105,10 +105,10 @@ export const defaultPortfolioContent: PortfolioContent = {
     resumePublicId: "",
     location: "Dhaka, Bangladesh",
     socials: [
-      { label: "GitHub", href: "https://github.com/biswass101" },
-      { label: "LinkedIn", href: "https://linkedin.com/in/niloy097" },
-      { label: "Email", href: "mailto:biswassnaeemcse@gmail.com" },
-      { label: "Website", href: "https://niloybiswass.xyz" },
+      { label: "GitHub", href: "https://github.com/biswass101", iconPublicId: "" },
+      { label: "LinkedIn", href: "https://linkedin.com/in/niloy097", iconPublicId: "" },
+      { label: "Email", href: "mailto:biswassnaeemcse@gmail.com", iconPublicId: "" },
+      { label: "Website", href: "https://niloybiswass.xyz", iconPublicId: "" },
     ],
   },
   about: {

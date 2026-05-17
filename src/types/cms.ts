@@ -50,6 +50,7 @@ export type PortfolioHeroSocialLink = {
   label: string;
   href: string;
   iconUrl?: string;
+  iconPublicId?: string;
 };
 
 export type PortfolioHeroContent = {

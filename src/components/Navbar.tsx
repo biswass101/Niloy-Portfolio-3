@@ -37,6 +37,7 @@ const Navbar = () => {
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith("/admin");
 
   useEffect(() => {
     let isMounted = true;
@@ -69,6 +70,10 @@ const Navbar = () => {
   const handleNavClick = useCallback(() => {
     setOpen(false);
   }, []);
+
+  if (isAdminRoute) {
+    return null;
+  }
 
   return (
     <div className="fixed top-5 left-1/2 z-50 -translate-x-1/2">
