@@ -75,6 +75,7 @@ export type PortfolioAboutContent = {
   focus: string;
   craft: string;
   mapImageUrl?: string;
+  mapImagePublicId?: string;
 };
 
 export type PortfolioEducationContent = {

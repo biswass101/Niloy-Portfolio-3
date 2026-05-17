@@ -29,6 +29,34 @@ const AdminSaveBar = ({ sectionKey }: AdminSaveBarProps) => {
     JSON.stringify(getSectionContent(content)) !== JSON.stringify(getSectionContent(savedContent));
 
   const buildSavePayload = (current: PortfolioContent, saved: PortfolioContent) => {
+    if (sectionKey === "education") {
+      const currentDetails = current.education.details;
+      const savedDetails = saved.education.details;
+      const hasNewDetails = currentDetails.length > savedDetails.length;
+
+      let nextDetails = currentDetails;
+      if (hasNewDetails) {
+        const savedSuffix = currentDetails.slice(currentDetails.length - savedDetails.length);
+        const isPrepended = savedSuffix.every((detail, index) => detail === savedDetails[index]);
+        if (isPrepended) {
+          const newDetails = currentDetails.slice(0, currentDetails.length - savedDetails.length);
+          nextDetails = [...savedDetails, ...newDetails];
+        }
+      }
+
+      if (nextDetails === currentDetails) {
+        return current;
+      }
+
+      return {
+        ...current,
+        education: {
+          ...current.education,
+          details: nextDetails,
+        },
+      };
+    }
+
     if (sectionKey !== "hero") return current;
 
     const normalize = (value: unknown) => JSON.stringify(value);

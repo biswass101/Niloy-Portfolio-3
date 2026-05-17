@@ -10,6 +10,7 @@ import { usePortfolioContent } from "@/hooks/use-portfolio-content";
 
 const ProjectsPage = () => {
   const { content } = usePortfolioContent();
+  const nonFeaturedProjects = content.projects.filter((project) => project.featured === false);
 
   return (
     <div className="relative min-h-screen bg-background">
@@ -37,14 +38,14 @@ const ProjectsPage = () => {
             className="mb-16"
           >
             <p className="text-primary text-xs uppercase tracking-[0.2em] font-mono mb-3">
-              Full Collection
+              Non-Featured Collection
             </p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono mb-2">All Projects</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono mb-2">View All Projects</h1>
             <div className="w-20 h-0.5 bg-primary/50" />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {content.projects.map((project, idx) => (
+            {nonFeaturedProjects.map((project, idx) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -120,6 +121,12 @@ const ProjectsPage = () => {
               </motion.div>
             ))}
           </div>
+
+          {nonFeaturedProjects.length === 0 ? (
+            <p className="mt-8 text-center font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              No non-featured projects available yet.
+            </p>
+          ) : null}
         </div>
       </main>
     </div>

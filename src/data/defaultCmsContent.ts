@@ -125,6 +125,7 @@ export const defaultPortfolioContent: PortfolioContent = {
     craft:
       "I care about craft: maintainable code, meaningful abstractions, and user experiences that feel smooth and intentional.",
     mapImageUrl: bangladeshMap.src,
+    mapImagePublicId: "",
   },
   education: {
     title: "B.Sc. in Computer Science and Engineering",

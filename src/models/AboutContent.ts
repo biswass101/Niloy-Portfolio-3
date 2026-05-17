@@ -11,6 +11,7 @@ const AboutSchema = new Schema(
     focus: { type: String, required: true, trim: true },
     craft: { type: String, required: true, trim: true },
     mapImageUrl: { type: String, trim: true, default: "" },
+    mapImagePublicId: { type: String, trim: true, default: "" },
   },
   { _id: false }
 );
