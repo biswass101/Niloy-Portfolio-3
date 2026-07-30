@@ -13,19 +13,21 @@ const AdminExperiencesSection = () => {
         title="Experience Entries"
         actionLabel="Add experience"
         onAction={() => {
+          const newExperience = {
+            id: `experience-${Date.now().toString(36)}`,
+            title: "Role",
+            company: "Company",
+            location: "Location",
+            period: "2026",
+            highlights: ["Impact point"],
+            tech: [],
+          };
+
           setContent((prev) => ({
             ...prev,
             experiences: [
+              newExperience,
               ...prev.experiences,
-              {
-                id: `experience-${Date.now().toString(36)}`,
-                title: "Role",
-                company: "Company",
-                location: "Location",
-                period: "2026",
-                highlights: ["Impact point"],
-                tech: [],
-              },
             ],
           }));
         }}

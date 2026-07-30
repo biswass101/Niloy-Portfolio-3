@@ -11,7 +11,7 @@ type ProjectsSectionProps = {
 };
 
 const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
-  const featuredProjects = projects.filter((project) => project.featured !== false).slice(0, 3);
+  const featuredProjects = projects.filter((project) => project.featured !== false);
 
   return (
     <section id="projects" className="section-padding">
