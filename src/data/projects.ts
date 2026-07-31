@@ -51,7 +51,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "AutoPingAi - Social Media Automation Platform",
+    title: "AutoPingAi-Social Media Automation Platform",
     description:
       "Chatbot integrating OpenAI with Meta platforms for automated customer messaging, order handling, and comment replies.",
     tech: ["Node.js", "OpenAI", "Meta APIs", "MongoDB", "Redis"],
