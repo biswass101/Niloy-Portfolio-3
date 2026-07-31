@@ -18,6 +18,7 @@ import {
 import profileImg from "@/assets/profile.jpeg";
 import cityUniversityImg from "@/assets/city_uni.jpg";
 import UniverseBackground from "@/components/UniverseBackground";
+import { about, education, profile } from "@/data/profile";
 
 type GithubUser = {
   name: string;
@@ -224,7 +225,7 @@ const ProfilePage = async () => {
             <div className="relative h-64 w-64 rounded-2xl overflow-hidden border border-primary/30">
               <Image
                 src={profileImg}
-                alt="Naeem Biswass Niloy"
+                alt={`Profile picture of ${profile.name}`}
                 fill
                 sizes="256px"
                 className="object-cover object-top"
@@ -235,7 +236,7 @@ const ProfilePage = async () => {
 
           <article className="glass rounded-2xl p-6 md:p-8 h-full">
             <p className="text-primary text-xs font-mono uppercase tracking-[0.2em] mb-3">Profile</p>
-            <h1 className="text-3xl md:text-4xl font-bold font-mono mb-4">Hi, I&apos;am Naeem Biswass Niloy</h1>
+            <h1 className="text-3xl md:text-4xl font-bold font-mono mb-4">Hi, I&apos;am {profile.name}</h1>
 
             <div className="flex flex-wrap gap-2 mb-6">
               {titles.map((title) => (
@@ -249,8 +250,7 @@ const ProfilePage = async () => {
             </div>
 
             <p className="text-muted-foreground text-base leading-relaxed mb-6">
-              I am currently in 4th Year (8th Semester), studying at City University, Dhaka, Bangladesh, with
-              a CGPA of 3.50/4.00 and an expected graduation year of 2026.
+              {profile.introduction}
             </p>
           </article>
 
@@ -271,27 +271,27 @@ const ProfilePage = async () => {
                 <div className="space-y-3 text-sm">
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <GraduationCap size={14} className="text-primary" />
-                    CSE
+                    {education.abbr}
                   </p>
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <Building2 size={14} className="text-primary" />
-                    City University, Dhaka
+                    {education.university}
                   </p>
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <BookOpen size={14} className="text-primary" />
-                    B.Sc. in Computer Science and Engineering
+                    {education.degree}
                   </p>
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <CalendarClock size={14} className="text-primary" />
-                    2026 (Expected)
+                    {education.graduationDate}
                   </p>
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <Star size={14} className="text-primary" />
-                    3.50 / 4.00 CGPA
+                    {education.cgpa} CGPA
                   </p>
                   <p className="inline-flex items-center gap-2 rounded-md bg-card/35 px-3 py-1.5 text-foreground font-mono backdrop-blur-sm transition-all duration-300 group-hover:bg-card/55">
                     <Sparkles size={14} className="text-primary" />
-                    8th Semester, 4th Year
+                    {education.status}
                   </p>
                 </div>
               </div>
@@ -299,8 +299,7 @@ const ProfilePage = async () => {
 
             <article className="glass rounded-2xl p-6 md:p-8 h-full">
               <p className="text-muted-foreground text-base leading-relaxed mb-6">
-                Full Stack Developer with hands-on experience in MERN stack, DevOps fundamentals, and
-                competitive programming, building scalable solutions from Dhaka, Bangladesh.
+                {about.description}
               </p>
               <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-2">

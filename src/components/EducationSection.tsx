@@ -8,10 +8,10 @@ import { certifications } from "@/data/certifications";
 const education = {
   title: "B.Sc. in Computer Science and Engineering",
   organization: "City University, Dhaka",
-  period: "July 2022 - Present",
+  period: "July 2022 - July 2026",
   details: [
-    "8th Semester · CGPA: 3.50/4.00",
-    "Core focus: OOP, Databases, Data Structures, Algorithms, OS, Networks, ML",
+    "Graduated · CGPA: 3.46/4.00",
+    "Core coursework: Object-Oriented Programming, Database Management Systems, Data Structures & Algorithms, Operating Systems, Computer Networks, Machine Learning",
   ],
 };
 
