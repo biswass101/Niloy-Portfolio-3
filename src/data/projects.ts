@@ -17,6 +17,8 @@ import bashaAiListingDetails from "@/assets/projects/bashaai/bashaAiListingDetai
 import bashaAiListings from "@/assets/projects/bashaai/bashaAiListings.png";
 import bashaAiRealTimeListerChatting from "@/assets/projects/bashaai/bashaAiRealTimeListerChatting.png";
 
+
+
 import portfolioManagementImage from "@/assets/projects/portfolio-management/portfolioManageManageMent.png";
 import shayeriHomeImage from "@/assets/projects/shayeri-collection/shayeri_home.png";
 import shayeriDashboardImage from "@/assets/projects/shayeri-collection/shayeri_dashboard.png";
@@ -25,6 +27,14 @@ import imageToTextHomeImage from "@/assets/projects/image-to-text-converter/imag
 import imageToTextFullViewImage from "@/assets/projects/image-to-text-converter/image_to_text_full_view.png";
 import imageToTextConvertingResultImage from "@/assets/projects/image-to-text-converter/image_to_text_converting_result.png";
 import imageToTextImage from "@/assets/projects/image-to-text-converter/image_to_Text.png";
+
+import libraryOSDashboard from "@/assets/projects/LibraryOS/LibraryOS-Dashboard.png";
+import libraryOSBooksCatalog from "@/assets/projects/LibraryOS/LibraryOS-Books-Catalog.png";
+import libraryOSBookDetails from "@/assets/projects/LibraryOS/LibrarOS-Book-Details.png";
+import libraryOSDocumentsUploading from "@/assets/projects/LibraryOS/LibraryOS-Documents-Uploading-for-RAG.png";
+import libraryOSRAGAI from "@/assets/projects/LibraryOS/LibraryOS-RAG-AI.png";
+import libraryOSReports from "@/assets/projects/LibraryOS/LibraryOS-Reports.png";
+import libraryOSReports1 from "@/assets/projects/LibraryOS/LibraryOS-Reports-1.png";
 
 export type Project = {
   title: string;
@@ -73,6 +83,27 @@ export const projects: Project[] = [
       { src: bashaAiListingDetails, alt: "BashaAi listing details preview" },
       { src: bashaAiListings, alt: "BashaAi listings preview" },
       { src: bashaAiRealTimeListerChatting, alt: "BashaAi real-time listing chatting preview" }
+    ],
+  },
+  {
+    title: "LibraryOS — AI-Powered Smart Library Management",
+  description:
+    `Intelligent library management platform with RAG-powered semantic search, document indexing, circulation management, and multi-role access control.
+    Features AI-assisted catalog discovery, real-time borrow tracking, member analytics, and secure role-based operations.
+
+    Credentials -  Email: demo@libraryos.demo | Pass: demo123`,
+  tech: ["Next.js", "NestJS", "OpenAI", "pgvector", "PostgreSQL (Neon)", "Prisma ORM", "Tailwind CSS", "shadcn/ui", "LangChain"],
+  live: "https://libraryoss.vercel.app",
+  github: "https://github.com/biswass101/Library-RAG--LibraryOS--Client.git",
+  year: "2026",
+    images: [
+      { src: libraryOSDashboard, alt: "LibraryOS dashboard preview" },
+      { src: libraryOSBooksCatalog, alt: "LibraryOS books catalog preview" },
+      { src: libraryOSBookDetails, alt: "LibraryOS book details preview" },
+      { src: libraryOSDocumentsUploading, alt: "LibraryOS documents uploading for RAG preview" },
+      { src: libraryOSRAGAI, alt: "LibraryOS RAG AI preview" },
+      { src: libraryOSReports, alt: "LibraryOS reports preview" },
+      { src: libraryOSReports1, alt: "LibraryOS reports detail preview" }
     ],
   },
   {

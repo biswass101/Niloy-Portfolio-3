@@ -19,6 +19,8 @@ import {
   Workflow,
   Wrench,
   type LucideIcon,
+  GitGraph,
+  LucideGitBranch,
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -29,11 +31,11 @@ const skillCategories = [
   },
   {
     title: "Frontend",
-    skills: ["React.js", "Next.js", "Nuxt.js", "Vue.js", "Tailwind CSS"],
+    skills: ["React.js", "Next.js", "Redux", "Nuxt.js", "Vue.js", "Tailwind CSS"],
   },
   {
     title: "Backend",
-    skills: ["Node.js", "Express.js", "NestJS", "REST APIs", "MongoDB", "PostgreSQL"],
+    skills: ["Node.js", "Express.js", "NestJS", "REST APIs", "GraphQL", "MongoDB", "PostgreSQL"],
   },
   {
     title: "DevOps & Tools",
@@ -49,6 +51,7 @@ const skillIcons: Record<string, LucideIcon> = {
   SQL: Database,
   "React.js": Layers3,
   "Next.js": Globe,
+  "Redux": LucideGitBranch,
   "Nuxt.js": Globe,
   "Vue.js": Layers3,
   "Tailwind CSS": Wrench,
@@ -56,6 +59,7 @@ const skillIcons: Record<string, LucideIcon> = {
   "Express.js": Network,
   NestJS: Server,
   "REST APIs": Workflow,
+  "GraphQL" : GitGraph,
   MongoDB: Database,
   PostgreSQL: Database,
   Docker: Container,
