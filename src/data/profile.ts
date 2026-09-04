@@ -18,5 +18,5 @@ export const education = {
 // About
 export const about = {
   description:
-    "Full Stack Software Engineer with hands-on experience building scalable web applications using the MERN stack, Next.js, Node.js, PostgreSQL, AWS, Docker, and modern DevOps practices. Passionate about AI-powered applications, cloud infrastructure, and competitive programming.",
+    "Software Engineer with professional experience designing and building scalable web applications using JavaScript, TypeScript, Node.js, Next.js, PostgreSQL, MongoDB, and AWS. Experienced in developing AI-powered applications with OpenAI, Amazon Bedrock, LangChain, and Retrieval-Augmented Generation (RAG), while deploying and maintaining production systems using Docker, CI/CD, and Linux. Strong foundation in backend system design, cloud infrastructure, and software engineering, complemented by competitive programming and problem-solving skills.",
 };

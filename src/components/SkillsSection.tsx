@@ -20,56 +20,58 @@ import {
   Wrench,
   type LucideIcon,
   GitGraph,
-  LucideGitBranch,
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const skillCategories = [
   {
     title: "Languages",
-    skills: ["C/C++", "Python", "JavaScript", "TypeScript", "SQL"],
+    skills: ["JavaScript", "TypeScript", "Java", "Python", "C/C++", "SQL"],
   },
   {
     title: "Frontend",
-    skills: ["React.js", "Next.js", "Redux", "Nuxt.js", "Vue.js", "Tailwind CSS"],
+    skills: ["React.js", "Next.js", "Nuxt.js", "HTML5", "CSS3"],
   },
   {
     title: "Backend",
     skills: ["Node.js", "Express.js", "NestJS", "REST APIs", "GraphQL", "MongoDB", "PostgreSQL"],
   },
   {
-    title: "DevOps & Tools",
-    skills: ["Docker", "CI/CD", "Linux", "AWS", "Kubernetes", "PM2", "Redis", "Git"],
+    title: "Cloud & DevOps",
+    skills: ["AWS", "GCP", "Docker", "Kubernetes", "CI/CD", "PM2", "Linux", "Git", "Terraform", "Ansible"],
   },
 ];
 
 const skillIcons: Record<string, LucideIcon> = {
   "C/C++": Braces,
+  Java: Code2,
   Python: FileCode2,
   JavaScript: Code2,
   TypeScript: Code2,
   SQL: Database,
   "React.js": Layers3,
   "Next.js": Globe,
-  "Redux": LucideGitBranch,
   "Nuxt.js": Globe,
-  "Vue.js": Layers3,
-  "Tailwind CSS": Wrench,
+  HTML5: Globe,
+  CSS3: Wrench,
   "Node.js": Server,
   "Express.js": Network,
   NestJS: Server,
   "REST APIs": Workflow,
-  "GraphQL" : GitGraph,
+  "GraphQL": GitGraph,
   MongoDB: Database,
   PostgreSQL: Database,
   Docker: Container,
   "CI/CD": Workflow,
   Linux: Terminal,
   AWS: MonitorCog,
+  GCP: MonitorCog,
   Kubernetes: Settings,
   PM2: FlaskConical,
   Redis: Database,
   Git: GitBranch,
+  Terraform: Settings,
+  Ansible: Settings,
 };
 
 const SkillsSection = () => {
