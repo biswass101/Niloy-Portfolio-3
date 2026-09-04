@@ -84,8 +84,8 @@ const HeroSection = () => {
           </div>
 
           <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            Full Stack Developer with hands-on experience in MERN stack, DevOps
-            fundamentals, and competitive programming. Building scalable
+            Software Engineer with professional experience building scalable web
+            applications, AI-powered systems, and cloud infrastructure. Building
             solutions from Dhaka, Bangladesh.
           </p>
 

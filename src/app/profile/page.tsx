@@ -47,9 +47,9 @@ const titles = ["Full Stack Developer", "Software Engineer", "MERN Stack Expert"
 
 const fallbackGithubUser: GithubUser = {
   name: "Naeem Biswass Niloy",
-  bio: "Software Engineer || MERN || CPian",
+  bio: "Software Engineer || Full Stack || AI & Cloud || CPian",
   location: "Dhaka, Bangladesh",
-  company: "Associate Software Engineer at ReturnHex",
+  company: "Software Engineer",
   html_url: "https://github.com/biswass101",
   public_repos: 0,
   followers: 0,

@@ -84,6 +84,7 @@ const expertiseCategories: ExpertiseCategory[] = [
       { label: "NestJS", iconClass: "devicon-nestjs-plain colored" },
       { label: "GraphQL", iconClass: "devicon-graphql-plain colored" },
       { label: "REST APIs", iconClass: "devicon-nodejs-plain colored" },
+      { label: "JWT Authentication", iconClass: "devicon-nodejs-plain colored" },
     ],
   },
   {
@@ -93,8 +94,9 @@ const expertiseCategories: ExpertiseCategory[] = [
       { label: "PostgreSQL", iconClass: "devicon-postgresql-plain colored" },
       { label: "MongoDB", iconClass: "devicon-mongodb-plain colored" },
       { label: "Redis", iconClass: "devicon-redis-plain colored" },
-      { label: "Kafka", iconClass: "devicon-apachekafka-original" },
       { label: "Prisma ORM", iconClass: "devicon-prisma-original" },
+      { label: "Kafka", iconClass: "devicon-apachekafka-original" },
+      { label: "BullMQ", iconClass: "devicon-redis-plain colored" },
     ],
   },
   {
@@ -122,7 +124,6 @@ const expertiseCategories: ExpertiseCategory[] = [
       { label: "LangChain", iconClass: "devicon-python-plain colored" },
       { label: "RAG (Vector Databases)", iconClass: "devicon-postgresql-plain colored" },
       { label: "Prompt Engineering", iconClass: "devicon-python-plain colored" },
-      { label: "BullMQ", iconClass: "devicon-redis-plain colored" },
       { label: "Meta Webhooks & Graph API", iconClass: "devicon-facebook-plain colored" },
     ],
   },
